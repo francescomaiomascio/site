@@ -1,66 +1,94 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-
-export default function Home() {
+export default function Project() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <section>
+      <h1>ICE Lab</h1>
+
+      <p>
+        ICE Lab is a research and engineering laboratory focused on the design of
+        integrated cognitive systems. The project explores how runtime engines,
+        environments, protocols, and networks can be composed into a coherent,
+        modular ecosystem.
+      </p>
+
+      <p>
+        ICE is not a single product, but a family of tightly related systems that
+        share common architectural principles and a unified cognitive model.
+      </p>
+
+      <h2>Core Domains</h2>
+
+      <h3>ICE Studio</h3>
+      <p>
+        <strong>Integrated Cognitive Environment.</strong> ICE Studio is the
+        primary user-facing environment. It provides the graphical interface,
+        workflow orchestration, project management, and interaction layer
+        through which users operate the ICE ecosystem.
+      </p>
+
+      <p>
+        ICE Studio focuses on usability, workflows, and human–system interaction.
+        It acts as the entry point to the underlying cognitive runtime.
+      </p>
+
+      <h3>ICE Engine</h3>
+      <p>
+        <strong>Integrated Cognitive Engine.</strong> ICE Engine represents the
+        core runtime responsible for orchestration, lifecycle management,
+        execution control, and system coordination.
+      </p>
+
+      <p>
+        The engine is designed to be modular, extensible, and capable of running
+        both locally and in distributed environments.
+      </p>
+
+      <h3>ICE AI</h3>
+      <p>
+        ICE AI groups all components related to cognition: agents, language
+        models, embeddings, knowledge processing, and reasoning pipelines.
+      </p>
+
+      <p>
+        This domain defines how intelligent behaviors are composed, coordinated,
+        and executed within the ICE ecosystem.
+      </p>
+
+      <h3>ICEP</h3>
+      <p>
+        <strong>Integrated Cognitive Engine Protocol.</strong> ICEP defines the
+        communication and control protocol used by ICE components to discover,
+        pair, negotiate capabilities, and exchange runtime information.
+      </p>
+
+      <p>
+        ICEP is designed to be transport-agnostic and usable in both local and
+        remote scenarios.
+      </p>
+
+      <h3>ICENet</h3>
+      <p>
+        ICENet represents the network layer built on top of ICEP. It provides
+        discovery, pairing, topology management, and secure communication between
+        ICE nodes.
+      </p>
+
+      <p>
+        ICENet enables distributed ICE deployments while preserving local-first
+        principles.
+      </p>
+
+      <h2>Project Status</h2>
+
+      <p>
+        The ICE ecosystem is currently in a <strong>foundational / pre-MVP</strong>{" "}
+        phase. Architecture, lifecycle, and core abstractions are being
+        stabilized before formal modular separation and public releases.
+      </p>
+
+      <p>
+        Current development focuses on achieving a functional, end-to-end system
+        before extracting individual domains into standalone modules.
+      </p>
+    </section>
   );
 }
