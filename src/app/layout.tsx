@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import Link from "next/link";
-import "@/styles/globals.css";
+import "../../theme/web/site.css";
 
 const iceTitleFont = Sora({
   subsets: ["latin"],
