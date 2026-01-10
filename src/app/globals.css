@@ -1,27 +1,150 @@
+/* =========================
+   RESET BASE
+   ========================= */
+
 html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
+
+body {
+  min-height: 100vh;
+  display: block;
+}
+
+
+/* =========================
+   ROOT LAYOUT
+   ========================= */
+
+.site-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================
+   VARIABILI DI SPAZIO
+   (minime, strutturali)
+   ========================= */
+
+:root {
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+}
+
+
+/* =========================
+   HEADER / FOOTER
+   ========================= */
 
 .site-header,
 .site-footer {
   width: 100%;
+  flex-shrink: 0;
 }
+
+.site-header {
+  position: relative;
+  z-index: 10;
+}
+
+.site-footer {
+  padding: var(--space-md) var(--space-md);
+  text-align: center;
+  opacity: 0.6;
+  font-size: 0.875rem;
+}
+
+
+/* =========================
+   NAV
+   ========================= */
 
 .site-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: var(--space-sm) var(--space-md);
 }
 
 .site-nav a {
-  margin-left: 1rem;
+  margin-left: var(--space-sm);
   text-decoration: none;
+  opacity: 0.8;
 }
 
+.site-nav a:hover {
+  opacity: 1;
+}
+
+
+/* =========================
+   MAIN
+   ========================= */
+
 .site-main {
-  min-height: calc(100vh - 120px);
-  padding: 2rem;
+  flex: 1;                 /* 🔴 CHIAVE: assorbe lo spazio */
+  width: 100%;
+  display: block;
+}
+
+
+/* =========================
+   SECTIONS
+   ========================= */
+
+.section {
+  width: 100%;
+  position: relative;
+}
+
+.section-inner {
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+
+/* separazione visiva tra sezioni */
+.section + .section {
+  margin-top: var(--space-lg);
+}
+
+
+/* =========================
+   WIDTH VARIANTS
+   ========================= */
+
+.section--full .section-inner {
+  max-width: 100%;
+}
+
+.section--wide .section-inner {
+  max-width: 1200px;
+}
+
+.section--narrow .section-inner {
+  max-width: 720px;
+}
+
+
+/* =========================
+   HERO VARIANT
+   ========================= */
+
+.section--hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.section--hero .section-inner {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
 }
