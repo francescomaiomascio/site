@@ -4,117 +4,110 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <>
-    {/* HERO */}
-    <Section id="hero" variant="hero">
-  <div className="hero-content">
-    <div className="hero-identity">
-      <img
-        src="https://drive.google.com/uc?export=view&id=1vWxflDsTqL0xvGQ5ajEdbQhdu4qdWqNC"
-        alt="Francesco Maiomascio"
-        className="hero-avatar"
-      />
-    </div>
+      {/* HERO — BRAND */}
+      <Section id="hero" variant="hero">
+        <div className="hero-content">
+          <header className="hero-header">
+            <h1>MothX Labs</h1>
 
-    <header className="hero-header">
-      <h1>Francesco Maiomascio</h1>
+            <p className="hero-subtitle">
+              Research and engineering of runtime-centric intelligent systems.
+            </p>
+          </header>
 
-      <p className="hero-subtitle">
-        Runtime architect & cognitive systems researcher
-      </p>
-    </header>
+          <div className="hero-thesis">
+            <p>
+              We design execution environments for cognitive systems where
+              control, governance, and long-term intelligibility are
+              first-class concerns.
+            </p>
+          </div>
+        </div>
+      </Section>
 
-    <div className="hero-thesis">
-      <p>
-        Designing systems where execution is explicit, governed,
-        and intelligible over time.
-      </p>
-    </div>
-  </div>
-</Section>
-
-
-      {/* STATEMENT */}
-      <Section id="statement" width="narrow">
+      {/* WHAT WE DO */}
+      <Section id="overview" width="narrow">
         <p>
-          I design and engineer <strong>runtime-centric cognitive systems</strong>.
+          <strong>MothX Labs</strong> is an independent research and engineering
+          initiative focused on the design of intelligent system infrastructures.
         </p>
 
         <p>
-          I am not primarily interested in models, prompts, or isolated AI
-          capabilities. I am interested in <strong>how intelligent systems
-          execute</strong>, how they are constrained, how they evolve over time,
-          and how their effects can be observed, audited, and governed.
-        </p>
-
-        <p>
-          For me, intelligence is not an emergent property to be admired.
-          It is a <strong>process to be controlled</strong>.
+          Our work explores how cognitive processes execute, interact with
+          real-world systems, and remain observable, auditable, and governable
+          over time.
         </p>
       </Section>
 
-      {/* WHY */}
-      <Section id="why" width="narrow">
-        <h2>Why this work exists</h2>
-
-        <p>
-          Most contemporary AI systems operate without a clear notion of authority.
-        </p>
-
-        <p>
-          Models decide. Side effects happen. State mutates. Memory accumulates.
-        </p>
-
-        <p>
-          But no component is truly responsible for <em>why</em> something was
-          allowed to happen.
-        </p>
-
-        <p>
-          If intelligence is becoming infrastructural, then
-          <strong> execution must be sovereign</strong>.
-        </p>
-      </Section>
-
-      {/* FOCUS */}
-      <Section id="focus" width="narrow">
-        <h2>Research focus</h2>
+      {/* PRINCIPLES */}
+      <Section id="principles" width="narrow">
+        <h2>Core principles</h2>
 
         <ul>
-          <li>execution is explicit and governed</li>
-          <li>state is derived, never mutated implicitly</li>
-          <li>side effects are capability-gated and traceable</li>
-          <li>memory is an artifact, not an accident</li>
-          <li>long-running processes remain intelligible over time</li>
+          <li>explicit execution and lifecycle governance</li>
+          <li>event-derived state and deterministic replay</li>
+          <li>capability-based control of side effects</li>
+          <li>memory as a governed artifact</li>
+          <li>long-term intelligibility of autonomous systems</li>
         </ul>
 
         <p>
-          I approach this as <strong>systems research</strong>, not product
-          development.
+          Our focus is on <strong>systems research</strong>, not short-term
+          product development.
         </p>
       </Section>
 
       {/* ICE */}
       <Section id="ice" width="narrow">
-        <h2>ICE Lab</h2>
+        <h2>ICE — Intelligent Cognitive Ecosystem</h2>
 
         <p>
-          ICE is a runtime architecture research effort.
+          ICE is the primary research platform developed at MothX Labs.
+        </p>
+
+        <p>
+          It is a <strong>runtime architecture for cognitive systems</strong>.
           Not a framework. Not a model.
         </p>
 
         <p>
-          A <strong>kernel-like execution environment</strong> for cognitive systems.
+          ICE defines how intelligent processes execute, how side effects are
+          controlled, and how system behavior remains auditable over time.
         </p>
 
         <ul>
           <li>
-            <Link href="/ice/projects">Explore the projects</Link>
+            <Link href="/ice">ICE overview</Link>
           </li>
           <li>
-            <Link href="/ice/docs">Read the documentation</Link>
+            <Link href="/ice/docs">Documentation</Link>
           </li>
           <li>
-            <Link href="/ice/status">View current status</Link>
+            <Link href="/ice/status">Project status</Link>
+          </li>
+        </ul>
+      </Section>
+
+      {/* FOUNDER */}
+      <Section id="founder" width="narrow">
+        <h2>Founder</h2>
+
+        <p>
+          MothX Labs was founded by <strong>Francesco Maiomascio</strong>,
+          runtime architect and cognitive systems researcher.
+        </p>
+
+        <p>
+          His work focuses on execution semantics, governance models,
+          and long-term system design for intelligent infrastructures.
+        </p>
+
+        <ul>
+          <li>
+            <Link href="/about">About Francesco</Link>
+          </li>
+          <li>
+            <Link href="/contact">Contact</Link>
           </li>
         </ul>
       </Section>
