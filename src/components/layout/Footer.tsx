@@ -1,9 +1,9 @@
 export function Footer() {
   return (
     <footer className="site-footer">
-      <p>
-        © {new Date().getFullYear()} Francesco Maiomascio
-      </p>
+      <div className="site-footer-inner">
+        <p>© {new Date().getFullYear()} MothX Labs. All rights reserved.</p>
+      </div>
     </footer>
   );
 }

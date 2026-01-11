@@ -4,9 +4,10 @@ import "@/theme/site.css";
 import { SiteLayout } from "../components/layout/SiteLayout";
 
 export const metadata: Metadata = {
-  title: "Francesco Maiomascio",
-  description: "Runtime architect & cognitive systems researcher.",
+  title: "MothX Labs",
+  description: "Research and engineering of runtime-centric intelligent systems.",
 };
+
 
 export default function RootLayout({
   children,

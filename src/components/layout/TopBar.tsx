@@ -1,13 +1,25 @@
+import Image from "next/image";
 import Link from "next/link";
+import avatarSrc from "@/app/img/DSC00498.jpg";
 
 export function TopBar() {
   return (
     <header className="site-header">
       <nav className="site-nav">
         <div className="site-nav-left">
-          <Link href="/" className="site-brand">
-            Francesco Maiomascio
-          </Link>
+          <div className="site-brand-wrap">
+            <Image
+              src={avatarSrc}
+              alt="MothX avatar"
+              width={36}
+              height={36}
+              className="site-avatar"
+              priority
+            />
+            <Link href="/" className="site-brand">
+              MothX Labs
+            </Link>
+          </div>
         </div>
 
         <div className="site-nav-right">
