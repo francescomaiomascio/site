@@ -1,8 +1,3 @@
-# Francesco Maiomascio — Personal Website
-
-This repository contains the source code for the personal website of
-**Francesco Maiomascio**.
-
 The site serves as a public-facing space for:
 - systems thinking and architectural research
 - long-term technical projects
