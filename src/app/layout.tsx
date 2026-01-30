@@ -1,12 +1,13 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
-import Link from "next/link";
+import "@/app/globals.css";
 import "@/theme/site.css";
+import { SiteLayout } from "../components/layout/SiteLayout";
 
 export const metadata: Metadata = {
-  title: "Francesco Maiomascio",
-  description: "Runtime architect & cognitive systems researcher.",
+  title: "MothX Labs",
+  description: "Research and engineering of runtime-centric intelligent systems.",
 };
+
 
 export default function RootLayout({
   children,
@@ -16,31 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header className="site-header">
-          <nav className="nav">
-            <div className="nav-left">
-              <strong>Francesco Maiomascio</strong>
-            </div>
-            <div className="nav-right">
-              <Link href="/">Home</Link>
-              <Link href="/about">About</Link>
-              <Link href="/ice">ICE</Link>
-              <a
-                href="https://github.com/francescomaiomascio"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </div>
-          </nav>
-        </header>
-
-        <main className="site-main">{children}</main>
-
-        <footer className="site-footer">
-          <p>© {new Date().getFullYear()} Francesco Maiomascio</p>
-        </footer>
+        <SiteLayout>{children}</SiteLayout>
       </body>
     </html>
   );
