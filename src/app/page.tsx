@@ -1,117 +1,147 @@
+// src/app/page.tsx
 import { Section } from "@/components/layout/Section";
 import Link from "next/link";
 
+import { currentFocus } from "@/content/focus";
+import { primaryLinks } from "@/content/links";
+import { projects } from "@/content/projects";
+import { writing } from "@/content/writing";
+
+function safeUrl(url?: string) {
+  if (!url) return null;
+  try {
+    // Ensure absolute URL (canonical outbound links should be absolute)
+    // This will throw on invalid URLs.
+    new URL(url);
+    return url;
+  } catch {
+    return null;
+  }
+}
+
 export default function HomePage() {
+  // Optional “preview” signals (no deep content; just routing hints)
+  const primaryProjects = Array.isArray(projects) ? projects.slice(0, 3) : [];
+  const primaryWriting = Array.isArray(writing) ? writing.slice(0, 3) : [];
+  const focusItems = Array.isArray(currentFocus) ? currentFocus : [];
+
+  const external = primaryLinks
+    .map((link) => ({ label: link.label, url: safeUrl(link.href) }))
+    .filter((x) => x.url);
+
   return (
     <>
-      {/* HERO — BRAND */}
       <Section id="hero" variant="hero">
         <div className="hero-content">
           <header className="hero-header">
-            <h1>MothX Labs</h1>
-
+            <h1>Francesco Maiomascio</h1>
             <p className="hero-subtitle">
-              Research and engineering of runtime-centric intelligent systems.
-              Execution, governance, and long-term intelligibility by design.
+              I build governable software systems: identity, authority, traceability.
             </p>
           </header>
 
           <div className="hero-thesis">
             <p>
-              We design execution environments for cognitive systems where
-              control, governance, and long-term intelligibility are
-              first-class concerns.
+              This site is a routing surface: it maps projects and writing across platforms
+              and points to canonical sources.
             </p>
           </div>
         </div>
       </Section>
 
-      {/* WHAT WE DO */}
-      <Section id="overview" width="narrow">
-        <p>
-          <strong>MothX Labs</strong> is an independent research and engineering
-          initiative focused on the design of intelligent system infrastructures.
-        </p>
-
-        <p>
-          Our work explores how cognitive processes execute, interact with
-          real-world systems, and remain observable, auditable, and governable
-          over time.
-        </p>
+      <Section id="focus" width="narrow">
+        <h2>Current focus</h2>
+        {focusItems.length > 0 ? (
+          focusItems.map((item) => (
+            <div key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              {Array.isArray(item.highlights) && item.highlights.length > 0 && (
+                <ul>
+                  {item.highlights.slice(0, 5).map((b, i) => (
+                    <li key={`${item.title}-${i}`}>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>Focus areas are being updated.</p>
+        )}
       </Section>
 
-      {/* PRINCIPLES */}
-      <Section id="principles" width="narrow">
-        <h2>Core principles</h2>
-
-        <ul>
-          <li>explicit execution and lifecycle governance</li>
-          <li>event-derived state and deterministic replay</li>
-          <li>capability-based control of side effects</li>
-          <li>memory as a governed artifact</li>
-          <li>long-term intelligibility of autonomous systems</li>
-        </ul>
-
-        <p>
-          Our focus is on <strong>systems research</strong>, not short-term
-          product development.
-        </p>
-      </Section>
-
-      {/* ICE */}
-      <Section id="ice" width="narrow">
-        <h2>ICE — Intelligent Cognitive Ecosystem</h2>
-
-        <p>
-          ICE is the primary research platform developed at MothX Labs.
-        </p>
-
-        <p>
-          It is a <strong>runtime architecture for cognitive systems</strong>.
-          Not a framework. Not a model.
-        </p>
-
-        <p>
-          ICE defines how intelligent processes execute, how side effects are
-          controlled, and how system behavior remains auditable over time.
-        </p>
+      <Section id="paths" width="narrow">
+        <h2>Navigate</h2>
 
         <ul>
           <li>
-            <Link href="/ice">ICE overview</Link>
+            <Link href="/projects">Projects</Link> — what exists and where it lives
           </li>
           <li>
-            <Link href="/ice/docs">Documentation</Link>
+            <Link href="/writing">Writing</Link> — series and essays (canonical links)
           </li>
           <li>
-            <Link href="/ice/status">Project status</Link>
+            <Link href="/about">About</Link> — identity and approach
+          </li>
+          <li>
+            <Link href="/status">Status</Link> — updates and current state
           </li>
         </ul>
       </Section>
 
-      {/* FOUNDER */}
-      <Section id="founder" width="narrow">
-        <h2>Founder</h2>
+      {(primaryProjects.length > 0 || primaryWriting.length > 0) && (
+        <Section id="signals" width="narrow">
+          <h2>Signals</h2>
 
-        <p>
-          MothX Labs was founded by <strong>Francesco Maiomascio</strong>,
-          runtime architect and cognitive systems researcher.
-        </p>
+          {primaryProjects.length > 0 && (
+            <>
+              <h3>Active projects</h3>
+              <ul>
+                {primaryProjects.map((p) => (
+                  <li key={p.id ?? p.name}>
+                    <strong>{p.name}</strong>
+                    {p.description ? ` — ${p.description}` : null}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
 
-        <p>
-          His work focuses on execution semantics, governance models,
-          and long-term system design for intelligent infrastructures.
-        </p>
+          {primaryWriting.length > 0 && (
+            <>
+              <h3>Recent writing</h3>
+              <ul>
+                {primaryWriting.map((w) => (
+                  <li key={w.id ?? w.title}>
+                    <strong>{w.title}</strong>
+                    {w.series ? ` — ${w.series}` : null}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
 
-        <ul>
-          <li>
-            <Link href="/about">About Francesco</Link>
-          </li>
-          <li>
-            <Link href="/contact">Contact</Link>
-          </li>
-        </ul>
-      </Section>
+          <p>
+            Details live in <Link href="/projects">/projects</Link> and{" "}
+            <Link href="/writing">/writing</Link>.
+          </p>
+        </Section>
+      )}
+
+      {external.length > 0 && (
+        <Section id="links" width="narrow">
+          <h2>Canonical links</h2>
+          <ul>
+            {external.map((x) => (
+              <li key={x.label}>
+                <a href={x.url!} target="_blank" rel="noreferrer">
+                  {x.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
     </>
   );
 }
