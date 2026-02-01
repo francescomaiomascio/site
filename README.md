@@ -1,8 +1,8 @@
 # site
 
-Personal hub and public proof surface.
+Personal hub and routing surface.
 
-This repository powers **maiomascio.dev**: a stable, readable entry point that maps my work across GitHub, Medium, and product artifacts—without turning the website into a “project homepage” for any single repo.
+This repository powers my personal website: a stable entry point that maps work across platforms (GitHub, Medium, Gumroad) without turning the site into the “homepage” of any single project.
 
 The goal is simple: make the work navigable.
 
@@ -10,44 +10,53 @@ The goal is simple: make the work navigable.
 
 ## What this site is
 
-- A public interface for **systems work**: identity, authority, traceability, execution structure.
+- A **routing surface** for systems work: identity, authority, traceability, execution structure.
 - A curated index of projects, writing series, and artifacts.
-- A long-lived surface that provides context and routing (not hype).
+- A long-lived interface focused on **context + navigation** (not hype).
 
 ---
 
 ## What this site is not
 
-- Not a blog platform (publishing happens on Medium).
-- Not a product platform (sales happen on Gumroad).
-- Not an “ICE control panel” (ICE remains defined by its own repos).
-- No backend, no accounts, no tracking-driven UX assumptions.
+- Not a publishing platform (long-form writing lives on Medium).
+- Not a sales platform (products and checkout live on Gumroad).
+- Not an ICE dashboard or runtime surface (ICE remains defined by its own repositories).
+- No backend, no accounts, no tracking-first UX assumptions.
 
 ---
 
-## Primary entry points
+## Canonical sources
 
-- GitHub (work log): https://github.com/francescomaiomascio  
-- ICE (systems work): https://github.com/francescomaiomascio/ice-foundation  
-- Medium (writing): https://medium.com/@framaiomascio  
-- Gumroad (artifacts): https://francescomaiomascio.gumroad.com/
+The site links out to canonical sources on purpose.
 
-(Links are intentionally explicit: the website routes; the canonical content lives on those platforms.)
+- GitHub (code + work log): https://github.com/francescomaiomascio
+- Medium (writing): https://medium.com/@francescomaiomascio
+- LinkedIn (public updates): https://www.linkedin.com/in/francesco-maiomascio/
+- Gumroad (artifacts): https://maiomascio.gumroad.com
 
 ---
 
 ## Repository scope
 
 This repo contains:
-- site source code
-- routing and UI structure
-- static copy and curated links
-- lightweight components for project/writing/product maps
+
+- website source code
+- routing and layout
+- presentational components
+- a small **declarative content layer** (`src/content`) used to map:
+  - current focus
+  - projects
+  - writing series
+  - canonical external links
 
 It does not contain:
-- runtime code or “core” logic for ICE
+
+- ICE runtime code or core logic
 - governance authority for any project
 - standards or enforcement logic
+
+Authority lives in the canonical repositories.  
+This site only **routes and explains**.
 
 ---
 
@@ -64,7 +73,7 @@ It does not contain:
 
 - Framework: Next.js
 - Deployment: Cloudflare Pages
-- Rendering: static / hybrid (as needed)
+- Rendering: static / hybrid as needed
 
 No backend services are required.
 
