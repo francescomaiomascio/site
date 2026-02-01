@@ -9,18 +9,15 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const main = mainRef.current;
-    if (!main) {
-      return;
-    }
+    if (!main) return;
 
     let ticking = false;
+
     const onScroll = () => {
-      if (ticking) {
-        return;
-      }
+      if (ticking) return;
 
       ticking = true;
-      window.requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
         const y = main.scrollTop;
         main.style.setProperty("--bg-y", `${-y * 0.18}px`);
         main.style.setProperty("--bg-y-strong", `${-y * 0.32}px`);
@@ -40,7 +37,12 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
     <div className="site-root">
       <TopBar />
 
-      <main className="site-main" role="main" ref={mainRef} id="scroll-root">
+      <main
+        className="site-main"
+        role="main"
+        ref={mainRef}
+        id="scroll-root"
+      >
         {children}
       </main>
 

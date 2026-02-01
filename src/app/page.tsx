@@ -21,9 +21,35 @@ function safeUrl(url?: string) {
 
 export default function HomePage() {
   // Optional “preview” signals (no deep content; just routing hints)
-  const primaryProjects = Array.isArray(projects) ? projects.slice(0, 3) : [];
-  const primaryWriting = Array.isArray(writing) ? writing.slice(0, 3) : [];
-  const focusItems = Array.isArray(currentFocus) ? currentFocus : [];
+  const primaryProjects = Array.isArray(projects) ? projects.slice(0, 1) : [];
+  const primaryWriting = Array.isArray(writing) ? writing.slice(0, 1) : [];
+  const focusItem = Array.isArray(currentFocus) ? currentFocus[0] : undefined;
+  const primaryPaths = [
+    {
+      href: "/projects",
+      title: "Projects",
+      description: "Artifacts",
+      detail: "Systems, tools, and standards in active development.",
+    },
+    {
+      href: "/writing",
+      title: "Writing",
+      description: "Thinking",
+      detail: "Notes, essays, and governance frames in progress.",
+    },
+    {
+      href: "/status",
+      title: "Status",
+      description: "Now",
+      detail: "Current signals, milestones, and operational state.",
+    },
+    {
+      href: "/about",
+      title: "About",
+      description: "Identity",
+      detail: "Background, approach, and research orientation.",
+    },
+  ];
 
   const external = primaryLinks
     .map((link) => ({ label: link.label, url: safeUrl(link.href) }))
@@ -49,97 +75,64 @@ export default function HomePage() {
         </div>
       </Section>
 
+      <Section id="paths" width="narrow">
+        <h2>What you can explore</h2>
+        <div className="nav-cards">
+          {primaryPaths.map((item) => (
+            <Link key={item.href} href={item.href} className="nav-card">
+              <span className="nav-card-title">{item.title}</span>
+              <span className="nav-card-meta">{item.description}</span>
+              <span className="nav-card-detail">{item.detail}</span>
+            </Link>
+          ))}
+        </div>
+      </Section>
+
       <Section id="focus" width="narrow">
         <h2>Current focus</h2>
-        {focusItems.length > 0 ? (
-          focusItems.map((item) => (
-            <div key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-              {Array.isArray(item.highlights) && item.highlights.length > 0 && (
+        {focusItem ? (
+          <div className="focus-block">
+            <p>
+              <strong>{focusItem.title}</strong>
+              {focusItem.description ? ` — ${focusItem.description}` : null}
+            </p>
+            {Array.isArray(focusItem.highlights) &&
+              focusItem.highlights.length > 0 && (
                 <ul>
-                  {item.highlights.slice(0, 5).map((b, i) => (
-                    <li key={`${item.title}-${i}`}>{b}</li>
+                  {focusItem.highlights.slice(0, 3).map((b, i) => (
+                    <li key={`${focusItem.title}-${i}`}>{b}</li>
                   ))}
                 </ul>
               )}
-            </div>
-          ))
+          </div>
         ) : (
           <p>Focus areas are being updated.</p>
         )}
       </Section>
 
-      <Section id="paths" width="narrow">
-        <h2>Navigate</h2>
-
-        <ul>
-          <li>
-            <Link href="/projects">Projects</Link> — what exists and where it lives
-          </li>
-          <li>
-            <Link href="/writing">Writing</Link> — series and essays (canonical links)
-          </li>
-          <li>
-            <Link href="/about">About</Link> — identity and approach
-          </li>
-          <li>
-            <Link href="/status">Status</Link> — updates and current state
-          </li>
-        </ul>
-      </Section>
-
       {(primaryProjects.length > 0 || primaryWriting.length > 0) && (
         <Section id="signals" width="narrow">
           <h2>Signals</h2>
-
-          {primaryProjects.length > 0 && (
-            <>
-              <h3>Active projects</h3>
-              <ul>
-                {primaryProjects.map((p) => (
-                  <li key={p.id ?? p.name}>
-                    <strong>{p.name}</strong>
-                    {p.description ? ` — ${p.description}` : null}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-
-          {primaryWriting.length > 0 && (
-            <>
-              <h3>Recent writing</h3>
-              <ul>
-                {primaryWriting.map((w) => (
-                  <li key={w.id ?? w.title}>
-                    <strong>{w.title}</strong>
-                    {w.series ? ` — ${w.series}` : null}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-
-          <p>
-            Details live in <Link href="/projects">/projects</Link> and{" "}
-            <Link href="/writing">/writing</Link>.
-          </p>
-        </Section>
-      )}
-
-      {external.length > 0 && (
-        <Section id="links" width="narrow">
-          <h2>Canonical links</h2>
-          <ul>
-            {external.map((x) => (
-              <li key={x.label}>
-                <a href={x.url!} target="_blank" rel="noreferrer">
-                  {x.label}
-                </a>
-              </li>
+          <div className="signals-list">
+            {primaryProjects.map((p) => (
+              <div key={p.id ?? p.name} className="signals-item">
+                <span className="signals-label">Project</span>
+                <span className="signals-value">
+                  {p.name}
+                  {p.description ? ` — ${p.description}` : null}
+                </span>
+              </div>
             ))}
-          </ul>
+            {primaryWriting.map((w) => (
+              <div key={w.id ?? w.title} className="signals-item">
+                <span className="signals-label">Writing</span>
+                <span className="signals-value">
+                  {w.title}
+                  {w.series ? ` — ${w.series}` : null}
+                </span>
+              </div>
+            ))}
+          </div>
         </Section>
       )}
     </>

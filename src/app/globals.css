@@ -18,17 +18,7 @@ body {
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  overflow: hidden; /* scroll solo su site-main */
-}
-
-
-/* =========================================================
-   TOKENS (LAYOUT ONLY)
-   ========================================================= */
-
-:root {
-  --header-height: 64px;
-  --footer-height: 48px;
+  overflow: auto;
 }
 
 
@@ -36,72 +26,9 @@ body {
    APP SHELL
    ========================================================= */
 
-.site-root {
-  position: relative;
-  height: 100vh;
-}
-
-
-/* =========================================================
-   HEADER / FOOTER (FIXED)
-   ========================================================= */
-
-.site-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: var(--header-height);
-  z-index: 100;
-}
-
-.site-footer {
-  position: fixed;
-  inset: auto 0 0 0;
-  height: var(--footer-height);
-  z-index: 100;
-}
-
-.site-footer-inner {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-
-/* =========================================================
-   SCROLL CONTAINER (CORE)
-   ========================================================= */
-
-.site-main {
-  position: absolute;
-  top: var(--header-height);
-  bottom: var(--footer-height);
-  left: 0;
-  right: 0;
-
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
-
-
-/* =========================================================
-   SECTIONS = 1 VIEWPORT EACH
-   ========================================================= */
-
 .section {
   width: 100%;
-  height: 100%;
-  min-height: 100%;
-
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
+  padding: clamp(3.5rem, 8vw, 6rem) 0;
 }
 
 
@@ -131,7 +58,5 @@ body {
    ========================================================= */
 
 .section-inner {
-  max-width: 1100px;
   width: 100%;
-  padding: 0 2rem;
 }
