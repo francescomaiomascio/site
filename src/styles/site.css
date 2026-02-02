@@ -203,6 +203,20 @@ li a {
   padding: 1.5rem;
 }
 
+.signals-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.signals-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1rem;
+}
+
 .site-footer-inner {
   display: flex;
   justify-content: space-between;

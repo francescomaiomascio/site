@@ -89,26 +89,26 @@ export default function HomePage() {
       {(primaryProjects.length > 0 || primaryWriting.length > 0) && (
         <Section id="signals" width="narrow">
           <h2>Signals</h2>
-          <div>
+          <ul className="signals-list">
             {primaryProjects.map((p) => (
-              <div key={p.id ?? p.name}>
-                <span>Project</span>
-                <span>
+              <li key={p.id ?? p.name} className="signals-item">
+                <span className="signals-label">Project</span>
+                <span className="signals-value">
                   {p.name}
                   {p.description ? ` — ${p.description}` : null}
                 </span>
-              </div>
+              </li>
             ))}
             {primaryWriting.map((w) => (
-              <div key={w.id ?? w.title}>
-                <span>Writing</span>
-                <span>
+              <li key={w.id ?? w.title} className="signals-item">
+                <span className="signals-label">Writing</span>
+                <span className="signals-value">
                   {w.title}
                   {w.series ? ` — ${w.series}` : null}
                 </span>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </Section>
       )}
     </>
