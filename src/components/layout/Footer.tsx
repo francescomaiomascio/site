@@ -4,53 +4,47 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer-inner site-shell">
-        <p>
-          © {year} Francesco Maiomascio · Personal hub and public routing surface.
-        </p>
+        <div className="site-footer-copy">
+          <p>
+            © {year} Francesco Maiomascio · Personal hub and public routing surface.
+          </p>
 
-        <p>
-          This site maps projects and writing across platforms.
-          Canonical content lives on external sources.
-        </p>
+          <p>
+            This site maps projects and writing across platforms.
+            Canonical content lives on external sources.
+          </p>
+        </div>
 
-        <ul className="site-footer-links">
-          <li>
-            <a
-              href="https://github.com/francescomaiomascio"
-              target="_blank"
-              rel="noreferrer"
-            >
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://medium.com/@francescomaiomascio"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Medium
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://maiomascio.gumroad.com"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Gumroad
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/in/francesco-maiomascio/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              LinkedIn
-            </a>
-          </li>
-        </ul>
+        <nav className="site-footer-links" aria-label="Footer">
+          <a
+            href="https://github.com/francescomaiomascio"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://medium.com/@francescomaiomascio"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Medium
+          </a>
+          <a
+            href="https://maiomascio.gumroad.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Gumroad
+          </a>
+          <a
+            href="https://www.linkedin.com/in/francesco-maiomascio/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            LinkedIn
+          </a>
+        </nav>
       </div>
     </footer>
   );
