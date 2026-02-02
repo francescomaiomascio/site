@@ -191,7 +191,8 @@ li a {
 .nav-cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
+  gap: 1.75rem;
+  margin-top: 2.5rem;
 }
 
 @media (max-width: 720px) {
@@ -203,7 +204,12 @@ li a {
 .nav-card {
   display: block;
   width: 100%;
-  padding: 1.5rem;
+  padding: 1.75rem;
+  min-height: 150px;
+}
+
+.nav-card span {
+  display: block;
 }
 
 .signals-list {
@@ -211,13 +217,13 @@ li a {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .signals-item {
   display: grid;
   grid-template-columns: 80px 1fr;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .site-footer-inner {
@@ -246,7 +252,7 @@ li a {
 
 
 .hero {
-  min-height: 100vh;
+  min-height: 70vh;
   width: 100%;
   display: flex;
   align-items: center;
