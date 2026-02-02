@@ -43,12 +43,11 @@ export default function HomePage() {
       <Section id="hero" variant="hero">
         <header>
           <h1>Francesco Maiomascio</h1>
-          <p>I build governable software systems: identity, authority, traceability.</p>
+          <p>
+            I build governable software systems: identity, authority, traceability.
+            This site is a routing surface for projects and writing.
+          </p>
         </header>
-        <p>
-          This site is a routing surface: it maps projects and writing across platforms and
-          points to canonical sources.
-        </p>
       </Section>
 
       <Section id="paths" width="narrow">
