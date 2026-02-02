@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import "@/theme/site.css";
+import "@/styles/site.css";
 import { SiteLayout } from "../components/layout/SiteLayout";
 
 export const metadata: Metadata = {
