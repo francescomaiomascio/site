@@ -185,6 +185,29 @@ li a {
   padding: 2.5rem 0 3rem;
 }
 
+.site-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.site-footer-copy {
+  display: grid;
+  gap: 0.6rem;
+  max-width: 60ch;
+}
+
+.site-footer-copy p {
+  margin: 0;
+}
+
+.site-footer-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 
 
 .hero {
