@@ -148,6 +148,8 @@ li a {
   position: sticky;
   top: 0;
   z-index: 10;
+  background: rgba(11, 15, 20, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .site-shell {
@@ -160,7 +162,7 @@ li a {
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  min-height: 72px;
+  min-height: 80px;
 }
 
 .site-brand {
