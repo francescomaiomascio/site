@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
-const fs = require("fs");
-const path = require("path");
-const https = require("https");
+import fs from "node:fs";
+import path from "node:path";
+import https from "node:https";
 
 const CONFIG_PATH = path.join(process.cwd(), "scripts", "projects.config.json");
 const OUTPUT_DIR = path.join(process.cwd(), "src", "content", "generated");
@@ -13,7 +13,29 @@ if (!TOKEN) {
   process.exit(1);
 }
 
-function ghGetJson(endpoint) {
+function parseLinkHeader(linkHeader) {
+  // GitHub Link header: <url>; rel="next", <url>; rel="last"
+  if (!linkHeader) return {};
+  const parts = linkHeader.split(",").map((p) => p.trim());
+  const links = {};
+  for (const part of parts) {
+    const match = part.match(/^<([^>]+)>;\s*rel="([^"]+)"$/);
+    if (match) links[match[2]] = match[1];
+  }
+  return links;
+}
+
+function extractPathFromUrl(url) {
+  // https://api.github.com/repos/OWNER/REPO/pulls?... -> /repos/OWNER/REPO/pulls?...
+  try {
+    const u = new URL(url);
+    return u.pathname + u.search;
+  } catch {
+    return null;
+  }
+}
+
+function ghRequestJson(endpoint) {
   const options = {
     hostname: "api.github.com",
     path: endpoint,
@@ -29,9 +51,7 @@ function ghGetJson(endpoint) {
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
       let data = "";
-      res.on("data", (chunk) => {
-        data += chunk;
-      });
+      res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
         if (res.statusCode && res.statusCode >= 300) {
           return reject(
@@ -39,16 +59,38 @@ function ghGetJson(endpoint) {
           );
         }
         try {
-          resolve(JSON.parse(data));
+          const json = JSON.parse(data || "null");
+          const link = res.headers?.link ? String(res.headers.link) : "";
+          resolve({ json, link });
         } catch (err) {
           reject(err);
         }
       });
     });
-
     req.on("error", reject);
     req.end();
   });
+}
+
+async function ghGetAllPages(initialEndpoint, { maxPages = 3 } = {}) {
+  // maxPages: sufficiente per MVP e evita di scaricare il mondo
+  const all = [];
+  let endpoint = initialEndpoint;
+  let pages = 0;
+
+  while (endpoint && pages < maxPages) {
+    pages += 1;
+    const { json, link } = await ghRequestJson(endpoint);
+
+    if (Array.isArray(json)) all.push(...json);
+    else if (json) all.push(json);
+
+    const links = parseLinkHeader(link);
+    const nextPath = links.next ? extractPathFromUrl(links.next) : null;
+    endpoint = nextPath;
+  }
+
+  return all;
 }
 
 function summarize(text, limit = 220) {
@@ -71,42 +113,51 @@ function isPublic(labels) {
   return labels.includes("public") && !labels.includes("internal");
 }
 
-function normalizeHighlight({
-  type,
-  title,
-  summary,
-  url,
-  date,
-  labels,
-  repo,
-  kind,
-}) {
-  return {
-    type,
-    title,
-    summary,
-    url,
-    date,
-    labels,
-    repo,
-    kind,
-  };
+function normalizeHighlight({ type, title, summary, url, date, labels, repo, kind }) {
+  return { type, title, summary, url, date, labels, repo, kind };
+}
+
+function stableSortHighlights(items) {
+  items.sort((a, b) => {
+    const da = new Date(a.date).getTime();
+    const db = new Date(b.date).getTime();
+    if (db !== da) return db - da;
+    // tie-breaker deterministico
+    return String(a.url).localeCompare(String(b.url));
+  });
+}
+
+function dedupeByUrl(items) {
+  const seen = new Set();
+  const out = [];
+  for (const it of items) {
+    if (!it?.url) continue;
+    if (seen.has(it.url)) continue;
+    seen.add(it.url);
+    out.push(it);
+  }
+  return out;
 }
 
 async function fetchRepoHighlights(owner, repo) {
   const highlights = [];
-  const prEndpoint = `/repos/${owner}/${repo}/pulls?state=closed&per_page=20&sort=updated&direction=desc`;
-  const issueEndpoint = `/repos/${owner}/${repo}/issues?state=closed&per_page=20&sort=updated&direction=desc&labels=public`;
 
-  const prs = await ghGetJson(prEndpoint);
-  const mergedPrs = prs.filter((pr) => pr.merged_at);
+  // PRs: closed, include merged
+  const prEndpoint =
+    `/repos/${owner}/${repo}/pulls?state=closed&per_page=100&sort=updated&direction=desc`;
+  // Issues: include closed, filter by labels=public (GitHub API supports this)
+  const issueEndpoint =
+    `/repos/${owner}/${repo}/issues?state=closed&per_page=100&sort=updated&direction=desc&labels=public`;
+
+  const prs = await ghGetAllPages(prEndpoint, { maxPages: 2 });
+  const mergedPrs = prs.filter((pr) => pr && pr.merged_at);
   const publicMerged = mergedPrs.filter((pr) => isPublic(labelNames(pr)));
-  const strongLabels = ["highlight", "breakthrough", "release-note"];
 
+  const strongLabels = ["highlight", "breakthrough", "release-note"];
   const labeled = publicMerged.filter((pr) => hasAny(labelNames(pr), strongLabels));
   const fallback = publicMerged.filter((pr) => !hasAny(labelNames(pr), strongLabels));
 
-  labeled.slice(0, 5).forEach((pr) => {
+  labeled.slice(0, 8).forEach((pr) => {
     highlights.push(
       normalizeHighlight({
         type: "pr_merged",
@@ -121,8 +172,8 @@ async function fetchRepoHighlights(owner, repo) {
     );
   });
 
-  // MVP fallback: include a couple of public merged PRs even without highlight labels.
-  fallback.slice(0, 2).forEach((pr) => {
+  // MVP fallback: qualche PR merged pubblica anche senza label strong
+  fallback.slice(0, 3).forEach((pr) => {
     highlights.push(
       normalizeHighlight({
         type: "pr_merged",
@@ -137,13 +188,13 @@ async function fetchRepoHighlights(owner, repo) {
     );
   });
 
-  const issues = await ghGetJson(issueEndpoint);
-  const pureIssues = issues.filter((issue) => !issue.pull_request);
-  const issueLabels = ["highlight", "milestone", "breakthrough"];
+  const issues = await ghGetAllPages(issueEndpoint, { maxPages: 2 });
+  const pureIssues = issues.filter((issue) => issue && !issue.pull_request);
+  const issueLabels = ["highlight", "milestone", "breakthrough", "release-note"];
 
   pureIssues
     .filter((issue) => isPublic(labelNames(issue)) && hasAny(labelNames(issue), issueLabels))
-    .slice(0, 10)
+    .slice(0, 12)
     .forEach((issue) => {
       highlights.push(
         normalizeHighlight({
@@ -159,12 +210,14 @@ async function fetchRepoHighlights(owner, repo) {
       );
     });
 
-  // TODO: Milestone export can be expanded later (labels/public rules not native to milestones).
+  // Milestones closed (non hanno labels nativi; li trattiamo come “always public”)
   try {
-    const milestones = await ghGetJson(
-      `/repos/${owner}/${repo}/milestones?state=closed&per_page=5&sort=updated_at&direction=desc`
+    const milestones = await ghGetAllPages(
+      `/repos/${owner}/${repo}/milestones?state=closed&per_page=100&sort=updated_at&direction=desc`,
+      { maxPages: 1 }
     );
-    milestones.slice(0, 3).forEach((milestone) => {
+
+    milestones.slice(0, 5).forEach((milestone) => {
       highlights.push(
         normalizeHighlight({
           type: "milestone_closed",
@@ -182,7 +235,19 @@ async function fetchRepoHighlights(owner, repo) {
     console.warn(`Milestone fetch failed for ${repo}: ${err.message}`);
   }
 
-  return highlights;
+  const deduped = dedupeByUrl(highlights);
+  stableSortHighlights(deduped);
+  return deduped;
+}
+
+function writeIfChanged(filePath, nextObj) {
+  const next = JSON.stringify(nextObj, null, 2) + "\n";
+  if (fs.existsSync(filePath)) {
+    const prev = fs.readFileSync(filePath, "utf8");
+    if (prev === next) return false;
+  }
+  fs.writeFileSync(filePath, next);
+  return true;
 }
 
 async function compile() {
@@ -194,9 +259,12 @@ async function compile() {
   }
 
   const index = {
+    // Se vuoi evitare commit inutili: commenta questa riga.
     generated_at: new Date().toISOString(),
     projects: [],
   };
+
+  let wroteSomething = false;
 
   for (const project of projects) {
     const highlights = [];
@@ -205,7 +273,8 @@ async function compile() {
       highlights.push(...repoHighlights);
     }
 
-    highlights.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const deduped = dedupeByUrl(highlights);
+    stableSortHighlights(deduped);
 
     const projectOutput = {
       id: project.id,
@@ -215,7 +284,7 @@ async function compile() {
       category: project.category,
       github: project.github,
       links: project.links || {},
-      highlights: highlights.slice(0, 12),
+      highlights: deduped.slice(0, 12),
       operational: project.operational || {
         signal: "steady",
         blocked: null,
@@ -225,7 +294,7 @@ async function compile() {
     };
 
     const projectPath = path.join(OUTPUT_DIR, `projects.${project.id}.json`);
-    fs.writeFileSync(projectPath, JSON.stringify(projectOutput, null, 2));
+    wroteSomething = writeIfChanged(projectPath, projectOutput) || wroteSomething;
 
     index.projects.push({
       id: project.id,
@@ -240,7 +309,13 @@ async function compile() {
   }
 
   const indexPath = path.join(OUTPUT_DIR, "projects.index.json");
-  fs.writeFileSync(indexPath, JSON.stringify(index, null, 2));
+  wroteSomething = writeIfChanged(indexPath, index) || wroteSomething;
+
+  if (!wroteSomething) {
+    console.log("No changes in generated feeds.");
+  } else {
+    console.log("Generated feeds updated.");
+  }
 }
 
 compile().catch((err) => {

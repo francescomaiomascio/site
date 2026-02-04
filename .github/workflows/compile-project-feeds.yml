@@ -25,7 +25,7 @@ jobs:
       - name: Compile feeds
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/compile-project-feeds.js
+        run: node scripts/compile-project-feeds.mjs
 
       - name: Commit generated feeds
         uses: stefanzweifel/git-auto-commit-action@v5

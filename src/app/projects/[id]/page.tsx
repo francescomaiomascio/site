@@ -65,8 +65,13 @@ export function generateStaticParams() {
   return (indexData.projects || []).map((project) => ({ id: project.id }));
 }
 
-export default function ProjectDetailPage({ params }: { params: { id: string } }) {
-  const project = getProjectData(params.id);
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const project = getProjectData(id);
   if (!project) return notFound();
 
   return (
