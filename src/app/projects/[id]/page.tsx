@@ -76,7 +76,7 @@ export default async function ProjectDetailPage({
 
   return (
     <>
-      <Section id={`project-${project.id}`} className="section--projects">
+      <Section id={`project-${project.id}`} className="section--projects" withFooter>
         <div className="preview-section">
           <header className="preview-header">
             <h1>{project.name}</h1>

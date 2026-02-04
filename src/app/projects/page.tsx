@@ -78,12 +78,18 @@ export default function ProjectsPage() {
 
   return (
     <>
-      {STATUS_ORDER.map((status) => {
+      {STATUS_ORDER.map((status, index) => {
         const meta = STATUS_META[status];
         const group = projects.filter((project) => project.status === status);
+        const isLast = index === STATUS_ORDER.length - 1;
 
         return (
-          <Section key={status} id={`projects-${status}`} className={meta.sectionClass}>
+          <Section
+            key={status}
+            id={`projects-${status}`}
+            className={meta.sectionClass}
+            withFooter={isLast}
+          >
             <div className="preview-section">
               <header className="preview-header">
                 <h2>{meta.title}</h2>
