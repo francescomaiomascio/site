@@ -118,7 +118,7 @@ export default function HomePage() {
           </header>
           <div className="preview-body">
             {primaryWriting.length > 0 ? (
-              <p>{primaryWriting[0].description ?? primaryWriting[0].title}</p>
+              <p>{primaryWriting[0].series ?? primaryWriting[0].title}</p>
             ) : (
               <p className="muted">Writing previews are being curated.</p>
             )}
