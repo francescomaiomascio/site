@@ -1,0 +1,33 @@
+.site-footer {
+  margin: 0;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  opacity: 0.75;
+}
+
+.site-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.site-footer-meta {
+  white-space: nowrap;
+}
+
+.site-footer-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.site-footer-links a {
+  opacity: 0.7;
+}
+
+.site-footer-links a:hover {
+  opacity: 1;
+}

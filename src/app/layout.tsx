@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import "@/app/globals.css";
-import "@/styles/site.css";
+import "@/styles/globals.css";
+import "@/styles/components/navigation.css";
+import "@/styles/components/footer.css";
+import "@/styles/features/projects.css";
+import "@/styles/features/hero.css";
 import { SiteLayout } from "../components/layout/SiteLayout";
 
 export const metadata: Metadata = {
