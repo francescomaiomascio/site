@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-04T00:00:00.000Z",
+  "generated_at": "2026-02-05T18:35:24.771Z",
   "projects": [
     {
       "id": "ice",
@@ -29,7 +29,20 @@
         "docs": "https://ice.foundation",
         "homepage": "https://ice.foundation"
       },
-      "highlights": []
+      "highlights": [
+        {
+          "type": "milestone_closed",
+          "title": "M0.1 — Strap Canonical Bootstrap",
+          "summary": "This milestone formalizes the canonical bootstrap phase of ICE Strap. Scope: - Single authoritative entrypoint (__main__) - Canonical bootstrap sequence enforced (strap → engine → runtime) - Explicit prohibition of runt…",
+          "url": "https://github.com/francescomaiomascio/ice-strap/milestone/1",
+          "date": "2026-01-21T12:24:36Z",
+          "labels": [
+            "milestone"
+          ],
+          "repo": "ice-strap",
+          "kind": "milestone"
+        }
+      ]
     },
     {
       "id": "psc",
@@ -48,7 +61,7 @@
       },
       "links": {
         "homepage": "https://projectstandardcore.com",
-        "gumroad": "https://gumroad.com/"
+        "gumroad": "https://francescomaiomascio.gumroad.com"
       },
       "highlights": []
     }

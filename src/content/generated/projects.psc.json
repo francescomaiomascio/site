@@ -7,24 +7,6 @@
   "repos": [
     "project-standard-core-public"
   ],
-  "hero": {
-    "tone": "psc"
-  },
-  "copy": {
-    "what": "PSC is a canonical standard for system contracts and interface stability.\nIt encodes expectations, invariants, and operating rules as artifacts.\nIt exists to make large systems consistent under change.",
-    "not": [
-      "Not a branding exercise.",
-      "Not a single library or SDK.",
-      "Not a compliance checkbox.",
-      "Not a release-note generator."
-    ],
-    "pillars": [
-      "Contracted interfaces.",
-      "Versioned invariants.",
-      "Traceable changes.",
-      "Explicit ownership."
-    ]
-  },
   "github": {
     "owner": "francescomaiomascio",
     "repo": "project-standard-core-public",
@@ -33,17 +15,17 @@
   },
   "links": {
     "homepage": "https://projectstandardcore.com",
-    "gumroad": "https://gumroad.com/"
+    "gumroad": "https://francescomaiomascio.gumroad.com"
   },
   "highlights": [],
   "operational": {
     "phase": "Bootstrap → Engine → Runtime",
     "surfaces": "Governance, Execution, Observability",
-    "priority": "System mapping",
     "signal": "steady",
-    "blocked": null,
-    "risk": null,
-    "next": "Publishing first public milestone"
+    "priority": "System mapping",
+    "risk": "Interface drift",
+    "next": "Pipeline coverage expansion",
+    "blocked": null
   },
   "diagnostics": {
     "repos_scanned": 1,

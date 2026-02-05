@@ -16,25 +16,6 @@
     "ice-protocols",
     "ice-providers"
   ],
-  "hero": {
-    "tone": "ice"
-  },
-  "copy": {
-    "what": "ICE is an execution-oriented system architecture.\nIt defines authority handoffs, invariants, and observable state as first-class.\nIt exists to make complex systems governable under change.",
-    "not": [
-      "Not a framework you drop into an app.",
-      "Not a single library or SDK.",
-      "Not “AI agents” as a product.",
-      "Not a marketing layer over GitHub."
-    ],
-    "pillars": [
-      "Authority boundaries.",
-      "Explicit handoffs.",
-      "Traceability surfaces.",
-      "Deterministic execution constraints.",
-      "Operational visibility."
-    ]
-  },
   "github": {
     "owner": "francescomaiomascio",
     "repo": "ice-runtime",
@@ -45,18 +26,31 @@
     "docs": "https://ice.foundation",
     "homepage": "https://ice.foundation"
   },
-  "highlights": [],
+  "highlights": [
+    {
+      "type": "milestone_closed",
+      "title": "M0.1 — Strap Canonical Bootstrap",
+      "summary": "This milestone formalizes the canonical bootstrap phase of ICE Strap. Scope: - Single authoritative entrypoint (__main__) - Canonical bootstrap sequence enforced (strap → engine → runtime) - Explicit prohibition of runt…",
+      "url": "https://github.com/francescomaiomascio/ice-strap/milestone/1",
+      "date": "2026-01-21T12:24:36Z",
+      "labels": [
+        "milestone"
+      ],
+      "repo": "ice-strap",
+      "kind": "milestone"
+    }
+  ],
   "operational": {
     "phase": "Bootstrap → Engine → Runtime",
     "surfaces": "Governance, Execution, Observability",
-    "priority": "System mapping",
     "signal": "steady",
-    "blocked": null,
-    "risk": null,
-    "next": "Expanding project feed coverage"
+    "priority": "System mapping",
+    "risk": "Interface drift",
+    "next": "Pipeline coverage expansion",
+    "blocked": null
   },
   "diagnostics": {
     "repos_scanned": 10,
-    "highlights_found": 0
+    "highlights_found": 1
   }
 }
