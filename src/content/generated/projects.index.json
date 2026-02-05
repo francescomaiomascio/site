@@ -3,10 +3,22 @@
   "projects": [
     {
       "id": "ice",
-      "name": "ICE Core",
+      "name": "ICE",
       "tagline": "Governable software systems, built in public.",
       "status": "active",
       "category": "ice",
+      "repos": [
+        "ice-runtime",
+        "ice-foundation",
+        "ice-docs",
+        "ice-strap",
+        "ice-engine",
+        "ice-ai",
+        "ice-observability",
+        "ice-consciousness",
+        "ice-protocols",
+        "ice-providers"
+      ],
       "github": {
         "owner": "francescomaiomascio",
         "repo": "ice-runtime",
@@ -25,6 +37,9 @@
       "tagline": "A public standard for project execution and governance.",
       "status": "stable",
       "category": "psc",
+      "repos": [
+        "project-standard-core-public"
+      ],
       "github": {
         "owner": "francescomaiomascio",
         "repo": "project-standard-core-public",
