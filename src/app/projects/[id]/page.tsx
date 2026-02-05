@@ -204,6 +204,8 @@ export default async function ProjectDetailPage({
     phase: project.operational?.phase || "Bootstrap → Engine → Runtime",
     surfaces: project.operational?.surfaces || "Governance, Execution, Observability",
     priority: project.operational?.priority || "System mapping",
+    risk: project.operational?.risk ?? "interface drift",
+    next: project.operational?.next ?? "milestone definition",
   };
   const highlights = (project.highlights || []).slice(0, 6);
   const strapline =
