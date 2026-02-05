@@ -4,6 +4,27 @@
   "tagline": "A public standard for project execution and governance.",
   "status": "stable",
   "category": "psc",
+  "repos": [
+    "project-standard-core-public"
+  ],
+  "hero": {
+    "tone": "psc"
+  },
+  "copy": {
+    "what": "PSC is a canonical standard for system contracts and interface stability.\nIt encodes expectations, invariants, and operating rules as artifacts.\nIt exists to make large systems consistent under change.",
+    "not": [
+      "Not a branding exercise.",
+      "Not a single library or SDK.",
+      "Not a compliance checkbox.",
+      "Not a release-note generator."
+    ],
+    "pillars": [
+      "Contracted interfaces.",
+      "Versioned invariants.",
+      "Traceable changes.",
+      "Explicit ownership."
+    ]
+  },
   "github": {
     "owner": "francescomaiomascio",
     "repo": "project-standard-core-public",
@@ -16,9 +37,16 @@
   },
   "highlights": [],
   "operational": {
+    "phase": "Bootstrap → Engine → Runtime",
+    "surfaces": "Governance, Execution, Observability",
+    "priority": "System mapping",
     "signal": "steady",
     "blocked": null,
     "risk": null,
     "next": "Publishing first public milestone"
+  },
+  "diagnostics": {
+    "repos_scanned": 1,
+    "highlights_found": 0
   }
 }

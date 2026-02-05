@@ -1,9 +1,40 @@
 {
   "id": "ice",
-  "name": "ICE Core",
+  "name": "ICE",
   "tagline": "Governable software systems, built in public.",
   "status": "active",
   "category": "ice",
+  "repos": [
+    "ice-runtime",
+    "ice-foundation",
+    "ice-docs",
+    "ice-strap",
+    "ice-engine",
+    "ice-ai",
+    "ice-observability",
+    "ice-consciousness",
+    "ice-protocols",
+    "ice-providers"
+  ],
+  "hero": {
+    "tone": "ice"
+  },
+  "copy": {
+    "what": "ICE is an execution-oriented system architecture.\nIt defines authority handoffs, invariants, and observable state as first-class.\nIt exists to make complex systems governable under change.",
+    "not": [
+      "Not a framework you drop into an app.",
+      "Not a single library or SDK.",
+      "Not “AI agents” as a product.",
+      "Not a marketing layer over GitHub."
+    ],
+    "pillars": [
+      "Authority boundaries.",
+      "Explicit handoffs.",
+      "Traceability surfaces.",
+      "Deterministic execution constraints.",
+      "Operational visibility."
+    ]
+  },
   "github": {
     "owner": "francescomaiomascio",
     "repo": "ice-runtime",
@@ -16,9 +47,16 @@
   },
   "highlights": [],
   "operational": {
+    "phase": "Bootstrap → Engine → Runtime",
+    "surfaces": "Governance, Execution, Observability",
+    "priority": "System mapping",
     "signal": "steady",
     "blocked": null,
     "risk": null,
     "next": "Expanding project feed coverage"
+  },
+  "diagnostics": {
+    "repos_scanned": 10,
+    "highlights_found": 0
   }
 }
