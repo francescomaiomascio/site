@@ -1,5 +1,6 @@
 // src/app/page.tsx
 "use client";
+import { buildPersonSchema } from "@/lib/seo/personSchema";
 import { Section } from "@/components/layout/Section";
 import Link from "next/link";
 import { useCallback, useMemo, useRef, useState } from "react";
@@ -106,11 +107,33 @@ function HeroSection() {
 }
 
 export default function HomePage() {
+  // --- SEO: Person entity schema (canonical) ---
+  const person = buildPersonSchema({
+    canonicalUrl: "https://www.maiomascio.dev/",
+    name: "Francesco Maiomascio",
+    jobTitle: "Runtime architect & cognitive systems researcher",
+    description:
+      "I design and engineer runtime-centric cognitive systems and AI execution architectures where intelligence is treated as a controlled process.",
+    alternateName: ["Fra Maio Mascio", "Maiomasso"],
+    sameAs: [
+      "https://github.com/francescomaiomascio",
+      "https://www.linkedin.com/in/INSERISCI-QUI",
+      "https://x.com/INSERISCI-QUI",
+      "https://medium.com/@INSERISCI-QUI",
+    ],
+    // imageUrl: "https://www.maiomascio.dev/img/portrait.jpg",
+  });
+  // --------------------------------------------
+
   const primaryProjects = Array.isArray(projects) ? projects.slice(0, 1) : [];
   const primaryWriting = Array.isArray(writing) ? writing.slice(0, 1) : [];
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
+      />
       <HeroSection />
 
       <Section id="projects" className="section--projects">
