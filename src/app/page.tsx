@@ -151,22 +151,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section id="status" className="section--status">
-        <div className="preview-section">
-          <header className="preview-header">
-            <h2>Status</h2>
-            <p className="muted">What is active, blocked, or evolving now.</p>
-          </header>
-          <div className="preview-body">
-            <p className="muted">Operational status and signals are published here.</p>
-          </div>
-          <footer className="preview-footer">
-            <Link href="/status">Explore status →</Link>
-          </footer>
-        </div>
-      </Section>
-
-      <Section id="about" className="section--about" withFooter>
+      <Section id="about" className="section--about section--about-home">
         <div className="preview-section">
           <header className="preview-header">
             <h2>About</h2>
@@ -177,6 +162,21 @@ export default function HomePage() {
           </div>
           <footer className="preview-footer">
             <Link href="/about">Explore about →</Link>
+          </footer>
+        </div>
+      </Section>
+
+      <Section id="status" className="section--status" withFooter>
+        <div className="preview-section">
+          <header className="preview-header">
+            <h2>Status</h2>
+            <p className="muted">What is active, blocked, or evolving now.</p>
+          </header>
+          <div className="preview-body">
+            <p className="muted">Operational status and signals are published here.</p>
+          </div>
+          <footer className="preview-footer">
+            <Link href="/status">Explore status →</Link>
           </footer>
         </div>
       </Section>

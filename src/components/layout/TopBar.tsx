@@ -22,8 +22,8 @@ export function TopBar() {
         <div className="site-nav-links">
           <Link href="/projects">Projects</Link>
           <Link href="/writing">Writing</Link>
-          <Link href="/status">Status</Link>
           <Link href="/about">About</Link>
+          <Link href="/status">Status</Link>
         </div>
 
         <div className="site-nav-icons" aria-label="Presence">
