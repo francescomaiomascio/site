@@ -1,6 +1,4 @@
 import React from "react";
-import { Footer } from "./Footer";
-
 type SectionWidth = "full" | "wide" | "narrow";
 type SectionVariant = "default" | "hero" | "highlight";
 
@@ -11,8 +9,8 @@ export interface SectionProps {
   variant?: SectionVariant;
   className?: string;
   innerClassName?: string;
-  withFooter?: boolean;
   snap?: boolean;
+  withFooter?: boolean;
   children: React.ReactNode;
 }
 
@@ -23,13 +21,14 @@ export function Section({
   variant = "default",
   className = "",
   innerClassName = "",
-  withFooter = false,
   snap = true,
+  withFooter = false,
   children,
 }: SectionProps) {
   const classes = [
     "section",
     snap ? "snap-section" : "",
+    withFooter ? "section--with-footer" : "",
     `section--${width}`,
     `section--${variant}`,
     className,
@@ -40,7 +39,6 @@ export function Section({
   const innerClasses = [
     "section-inner",
     innerClassName,
-    withFooter ? "section-inner--with-footer" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -55,7 +53,6 @@ export function Section({
         ) : (
           children
         )}
-        {withFooter ? <Footer /> : null}
       </div>
     </Component>
   );

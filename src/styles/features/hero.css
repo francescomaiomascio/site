@@ -91,10 +91,10 @@
 .hero-layout {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr minmax(0, 480px);
+  grid-template-columns: 1fr minmax(0, 560px);
   align-items: center;
   justify-items: stretch;
-  gap: clamp(2.4rem, 5.5vw, 5.5rem);
+  gap: clamp(0.8rem, 2.6vw, 2.6rem);
   max-width: var(--hero-content-width);
   margin-left: auto;
   margin-right: auto;

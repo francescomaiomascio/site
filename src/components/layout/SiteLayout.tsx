@@ -4,11 +4,13 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { TopBar } from "./TopBar";
 import { PageBack } from "./PageBack";
+import { Footer } from "./Footer";
 
 export function SiteLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
   const snapEnabled = pathname !== "/about";
+  const isAbout = pathname === "/about";
 
   useEffect(() => {
     const main = mainRef.current;
@@ -48,9 +50,27 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
   useLayoutEffect(() => {
     const main = mainRef.current;
     if (!main) return;
+    const prevBehavior = main.style.scrollBehavior;
+    main.style.scrollBehavior = "auto";
     main.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    main.style.scrollBehavior = prevBehavior;
     document.documentElement.classList.remove("preload");
   }, [pathname]);
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main || !isAbout) return;
+
+    main.classList.add("page-enter");
+    const timeout = window.setTimeout(() => {
+      main.classList.remove("page-enter");
+    }, 620);
+
+    return () => {
+      window.clearTimeout(timeout);
+      main.classList.remove("page-enter");
+    };
+  }, [isAbout, pathname]);
 
   return (
     <div className="app-surface">
@@ -63,8 +83,11 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
         id="scroll-root"
       >
         <PageBack />
-        {children}
+        <div className="page-transition">
+          {children}
+        </div>
       </main>
+      <Footer />
     </div>
   );
 }

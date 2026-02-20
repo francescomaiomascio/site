@@ -70,7 +70,7 @@ Print this. Keep it visible during analysis.
 ### Repos
 
 1. **ice-foundation** (Stable) — Axioms + invariants + boundaries (only autonomous domain)
-2. **ice-docs** (Legacy) — Narrative + reference docs (needs realignment)
+2. **ice-foundation** (Legacy) — Narrative + reference docs (needs realignment)
 3. **ice-tests** (Refactor pending) — Test harness + regression + compliance
 4. **ice-observability** (Empty placeholder) — Event taxonomy + telemetry (TBD)
 5. **ice-studio** (Semi-legacy) — UI/IDE (graph + timeline + plugins; frozen post-extraction)
@@ -152,7 +152,7 @@ User invokes → ice-strap validates → ice-engine coordinates → ice-runtime 
 |**Active**|Under active development, structured|ice-engine, ice-ai|
 |**Partial**|Structure present, incomplete features|ice-strap, ice-runtime|
 |**Placeholder**|Minimal or empty, future work|ice-observability|
-|**Legacy**|Needs realignment or refactor|ice-docs, ice-protocols (partial)|
+|**Legacy**|Needs realignment or refactor|ice-foundation, ice-protocols (partial)|
 |**Semi-legacy**|Was working, frozen post-extraction|ice-studio|
 
 ---

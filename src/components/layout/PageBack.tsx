@@ -3,7 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const HOME_ANCHORS: Record<string, string> = {
+  projects: "/#projects",
+  writing: "/#writing",
+  about: "/#about",
+  status: "/#status",
+};
+
 function getParentPath(segments: string[]) {
+  if (segments.length === 1) {
+    return HOME_ANCHORS[segments[0]] ?? "/";
+  }
   if (segments.length <= 1) return "/";
   return `/${segments.slice(0, -1).join("/")}`;
 }

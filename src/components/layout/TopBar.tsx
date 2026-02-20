@@ -1,32 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import avatarSrc from "@/app/img/DSC00498.jpg";
 
 export function TopBar() {
   return (
     <header className="site-header">
       <nav className="site-nav site-shell">
-        <Link href="/" className="site-brand">
-          <Image
-            src={avatarSrc}
-            alt="Francesco Maiomascio"
-            width={36}
-            height={36}
-            className="site-brand-avatar"
-            priority
-          />
-          <span className="site-brand-name">Francesco Maiomascio</span>
-          <span className="site-brand-short" aria-hidden="true">FM</span>
-        </Link>
-
-        <div className="site-nav-links">
-          <Link href="/projects">Projects</Link>
-          <Link href="/writing">Writing</Link>
-          <Link href="/about">About</Link>
-          <Link href="/status">Status</Link>
+        <div className="site-header-left">
+          <Link href="/" className="site-brand">
+            <span className="site-brand-name">Francesco Maiomascio</span>
+            <span className="site-brand-short" aria-hidden="true">FM</span>
+          </Link>
         </div>
 
-        <div className="site-nav-icons" aria-label="Presence">
+        <div className="site-header-center site-nav-icons" aria-label="Presence">
           <a
             href="https://github.com/francescomaiomascio"
             target="_blank"
@@ -140,6 +126,12 @@ export function TopBar() {
               unoptimized
             />
           </a>
+        </div>
+
+        <div className="site-header-right site-nav-links">
+          <Link href="/projects">Projects</Link>
+          <Link href="/writing">Writing</Link>
+          <Link href="/about">About</Link>
         </div>
       </nav>
     </header>

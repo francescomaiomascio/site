@@ -37,7 +37,7 @@ Stratification (/architecture)
 │   └── ice-api
 └── Layer 3: Proof Surfaces
     ├── ice-foundation
-    ├── ice-docs
+    ├── ice-foundation
     ├── ice-tests
     ├── ice-observability
     └── ice-studio

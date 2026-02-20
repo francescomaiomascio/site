@@ -143,7 +143,7 @@ Makes ICE **credible** and **navigable**: axioms, proof, telemetry, documentatio
 #### Promise (Concrete Capabilities)
 
 1. **ice-foundation**: Defines axioms, invariants, boundaries (constitutional layer)
-2. **ice-docs**: Narrative + reference documentation (legacy, needs realignment)
+2. **ice-foundation**: Narrative + reference documentation (legacy, needs realignment)
 3. **ice-tests**: Test harness, regression suite, compliance checks (refactor pending)
 4. **ice-observability**: Event taxonomy, sinks/transports, telemetry (currently empty placeholder)
 5. **ice-studio**: UI for visualizing execution graph, timeline, agent orchestration, plugins (former monorepo, needs reconnection to Layer 1/2)
@@ -154,13 +154,13 @@ Makes ICE **credible** and **navigable**: axioms, proof, telemetry, documentatio
 - **Test matrix**: cross-domain test coverage (from ice-tests when ready)
 - **Event taxonomy**: what runtime emits (from ice-observability)
 - **Dashboard/timeline**: visual proof of execution (from ice-studio)
-- **Documentation index**: concept + reference (from ice-docs post-realignment)
+- **Documentation index**: concept + reference (from ice-foundation post-realignment)
 - **Activity feed**: merged highlights from all 5 repos
 
 #### Maturity Status
 
 - **ice-foundation**: Stable (only autonomous domain, semantics already coherent)
-- **ice-docs**: Legacy (needs realignment to 3-layer stratification)
+- **ice-foundation**: Legacy (needs realignment to 3-layer stratification)
 - **ice-tests**: Refactor pending (structure exists, needs update)
 - **ice-observability**: Empty placeholder (taxonomy defined conceptually, no code)
 - **ice-studio**: Semi-legacy (was monorepo ICE, frozen post-domain extraction, needs Layer 1/2 reconnection)
@@ -168,7 +168,7 @@ Makes ICE **credible** and **navigable**: axioms, proof, telemetry, documentatio
 #### Entry Points (Code Navigation)
 
 - **ice-foundation**: `FOUNDATION.md`, axioms/, boundaries/
-- **ice-docs**: (to be restructured: concepts/, reference/, runbooks/)
+- **ice-foundation**: (to be restructured: concepts/, reference/, runbooks/)
 - **ice-tests**: (pending refactor: domains/, compliance/)
 - **ice-observability**: (TBD: events/taxonomy.py, sinks/, transports/)
 - **ice-studio**: UI surfaces (graph, timeline, session explorer), plugins/
@@ -200,7 +200,7 @@ Makes ICE **credible** and **navigable**: axioms, proof, telemetry, documentatio
 |Repo|Status|Links|
 |---|---|---|
 |ice-foundation|Stable|-|
-|ice-docs|Legacy|-|
+|ice-foundation|Legacy|-|
 |ice-tests|Refactor pending|-|
 |ice-observability|Empty placeholder|-|
 |ice-studio|Semi-legacy|-|
@@ -406,7 +406,7 @@ For each repository, extract the following:
 ### Phase 3: Proof Surfaces Analysis
 
 - [ ] Analyze ice-foundation (axioms + boundaries)
-- [ ] Analyze ice-docs (legacy audit + realignment plan)
+- [ ] Analyze ice-foundation (legacy audit + realignment plan)
 - [ ] Analyze ice-tests (refactor plan + current coverage)
 - [ ] Analyze ice-observability (taxonomy + MVP plan)
 - [ ] Analyze ice-studio (UI surfaces + reconnection plan)
