@@ -2,52 +2,25 @@
   "owner": "francescomaiomascio",
   "projects": [
     {
-      "id": "ice",
-      "name": "ICE",
-      "tagline": "Governable software systems, built in public.",
+      "id": "yai",
+      "name": "YAI",
+      "tagline": "Runtime-centric intelligent systems with authority and determinism.",
       "status": "active",
-      "category": "ice",
+      "category": "yai",
       "github": {
         "owner": "francescomaiomascio",
-        "repo": "ice-runtime",
-        "url": "https://github.com/francescomaiomascio/ice-runtime",
+        "repo": "yai",
+        "url": "https://github.com/francescomaiomascio/yai",
         "default_branch": "main"
       },
       "links": {
-        "docs": "https://ice.foundation",
-        "homepage": "https://ice.foundation"
+        "docs": "https://yai.foundation",
+        "homepage": "https://yai.foundation"
       },
       "repos": [
-        "ice-runtime",
-        "ice-foundation",
-        "ice-docs",
-        "ice-strap",
-        "ice-engine",
-        "ice-ai",
-        "ice-observability",
-        "ice-consciousness",
-        "ice-protocols",
-        "ice-providers"
-      ]
-    },
-    {
-      "id": "psc",
-      "name": "Project Standard Core",
-      "tagline": "A public standard for project execution and governance.",
-      "status": "stable",
-      "category": "psc",
-      "github": {
-        "owner": "francescomaiomascio",
-        "repo": "project-standard-core-public",
-        "url": "https://github.com/francescomaiomascio/project-standard-core-public",
-        "default_branch": "main"
-      },
-      "links": {
-        "homepage": "https://projectstandardcore.com",
-        "gumroad": "https://francescomaiomascio.gumroad.com"
-      },
-      "repos": [
-        "project-standard-core-public"
+        "yai",
+        "yai-cli",
+        "yai-specs"
       ]
     }
   ]
