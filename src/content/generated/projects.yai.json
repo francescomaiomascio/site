@@ -1,0 +1,49 @@
+{
+  "id": "yai",
+  "name": "YAI",
+  "tagline": "Runtime-centric intelligent systems with authority and determinism.",
+  "status": "active",
+  "category": "yai",
+  "repos": [
+    "yai",
+    "yai-cli",
+    "yai-specs"
+  ],
+  "github": {
+    "owner": "francescomaiomascio",
+    "repo": "yai",
+    "url": "https://github.com/francescomaiomascio/yai",
+    "default_branch": "main"
+  },
+  "links": {
+    "docs": "https://yai.foundation",
+    "homepage": "https://yai.foundation"
+  },
+  "highlights": [
+    {
+      "type": "milestone_closed",
+      "title": "PHASE: contract-baseline-lock@0.1.0",
+      "summary": "Objective Formal baseline lock of canonical contract surface. Freeze contract invariants and establish governance closure model. Runbook anchor docs/runbooks/contract-baseline-lock.md#0.1.0 Done when: - All baseline con…",
+      "url": "https://github.com/yai-labs/yai/milestone/1",
+      "date": "2026-02-19T23:59:54Z",
+      "labels": [
+        "milestone"
+      ],
+      "repo": "yai",
+      "kind": "milestone"
+    }
+  ],
+  "operational": {
+    "phase": "Bootstrap → Engine → Runtime",
+    "surfaces": "Governance, Execution, Observability",
+    "signal": "steady",
+    "priority": "System mapping",
+    "risk": "Interface drift",
+    "next": "Pipeline coverage expansion",
+    "blocked": null
+  },
+  "diagnostics": {
+    "repos_scanned": 3,
+    "highlights_found": 1
+  }
+}

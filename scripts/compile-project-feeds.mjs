@@ -36,6 +36,10 @@ function extractPathFromUrl(url) {
 }
 
 function ghRequestJson(endpoint) {
+  return ghRequestJsonWithRedirect(endpoint, 5); // max 5 redirects
+}
+
+function ghRequestJsonWithRedirect(endpoint, redirectsLeft) {
   const options = {
     hostname: "api.github.com",
     path: endpoint,
@@ -50,10 +54,35 @@ function ghRequestJson(endpoint) {
 
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
+      // Handle redirects (301, 302, 307, 308)
+      if (res.statusCode && [301, 302, 307, 308].includes(res.statusCode)) {
+        if (redirectsLeft <= 0) {
+          return reject(new Error(`GitHub API: Too many redirects on ${endpoint}`));
+        }
+        const location = res.headers.location;
+        if (!location) {
+          return reject(new Error(`GitHub API: Redirect without Location header on ${endpoint}`));
+        }
+        // Extract path from redirect URL
+        const redirectPath = extractPathFromUrl(location);
+        if (!redirectPath) {
+          return reject(new Error(`GitHub API: Invalid redirect location: ${location}`));
+        }
+        // Consume response to free up socket
+        res.on("data", () => { });
+        res.on("end", () => {
+          // Follow the redirect
+          ghRequestJsonWithRedirect(redirectPath, redirectsLeft - 1)
+            .then(resolve)
+            .catch(reject);
+        });
+        return;
+      }
+
       let data = "";
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
-        if (res.statusCode && res.statusCode >= 300) {
+        if (res.statusCode && res.statusCode >= 400) {
           return reject(
             new Error(`GitHub API ${endpoint} failed: ${res.statusCode} ${data}`)
           );
@@ -306,6 +335,7 @@ async function compile() {
       },
     };
 
+    // YAI canonical output: projects.yai.json (currently the only active project)
     const projectPath = path.join(OUTPUT_DIR, `projects.${project.id}.json`);
     wroteSomething = writeIfChanged(projectPath, projectOutput) || wroteSomething;
 

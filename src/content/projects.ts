@@ -9,19 +9,11 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "ice",
-    name: "ICE",
-    description: "Modular ecosystem for governable software execution and governance surfaces.",
-    href: "https://github.com/francescomaiomascio?tab=repositories",
+    id: "yai",
+    name: "YAI",
+    description: "Runtime-centric intelligent systems with explicit authority and deterministic execution.",
+    href: "https://github.com/francescomaiomascio/yai",
     status: "active",
-    tags: ["runtime", "governance", "identity"],
-  },
-  {
-    id: "psc",
-    name: "Project Standard Core (PSC)",
-    description: "Policy-first standards and templates for governable projects.",
-    href: "https://github.com/francescomaiomascio",
-    status: "active",
-    tags: ["standards", "governance", "templates"],
+    tags: ["runtime", "execution", "authority"],
   },
 ];
