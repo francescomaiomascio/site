@@ -62,3 +62,6 @@ next-env.d.ts
 # Deployment platforms
 # =========================
 .vercel
+
+# build-staged skin assets (generated)
+src/styles/theme/
