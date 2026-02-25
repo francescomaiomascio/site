@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-25T06:50:10.426Z",
+  "generated_at": "2026-02-25T12:37:21.175Z",
   "projects": [
     {
       "id": "yai",
@@ -23,6 +23,30 @@
         "homepage": "https://yai.foundation"
       },
       "highlights": [
+        {
+          "type": "milestone_closed",
+          "title": "PHASE: infra-cutover@0.1.0",
+          "summary": "Cross-repo cutover to yai-infra reusable workflows and project governance alignment.",
+          "url": "https://github.com/yai-labs/yai/milestone/3",
+          "date": "2026-02-25T09:41:28Z",
+          "labels": [
+            "milestone"
+          ],
+          "repo": "yai",
+          "kind": "milestone"
+        },
+        {
+          "type": "milestone_closed",
+          "title": "PHASE: contract-baseline-lock@0.1.1",
+          "summary": "CI Parity Enforcement on Contract Surfaces Runbook anchor: docs/runbooks/contract-baseline-lock.md#phase-0-1-1-ci-parity",
+          "url": "https://github.com/yai-labs/yai/milestone/2",
+          "date": "2026-02-25T09:41:15Z",
+          "labels": [
+            "milestone"
+          ],
+          "repo": "yai",
+          "kind": "milestone"
+        },
         {
           "type": "milestone_closed",
           "title": "PHASE: contract-baseline-lock@0.1.0",
