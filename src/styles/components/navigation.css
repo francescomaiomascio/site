@@ -46,22 +46,18 @@
 .site-brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .site-brand:hover {
   border-bottom-color: transparent;
 }
 
-.site-brand-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  box-shadow: 0 0 0 2px rgba(120, 150, 200, 0.35);
-}
-
 .site-brand-name {
-  font-size: 1.05rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .site-brand-short {
@@ -72,9 +68,11 @@
 
 .site-nav-links {
   display: flex;
-  gap: 1.25rem;
+  gap: 1rem;
   flex-wrap: wrap;
-  font-size: 1.02rem;
+  font-size: 0.94rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .site-nav-links a {
@@ -88,28 +86,30 @@
   opacity: 0.9;
 }
 
-.site-nav-icons {
+.site-nav-actions {
   display: flex;
-  gap: 0.9rem;
+  gap: 0.8rem;
   align-items: center;
 }
 
-.site-nav-icons img {
-  width: 22px;
-  height: 22px;
-  display: block;
-  opacity: 0.7;
-  filter: drop-shadow(0 0 6px rgba(120, 150, 200, 0.2));
-  transition: transform 180ms ease, opacity 0.2s ease, filter 0.2s ease;
+.site-nav-pilot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.2rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  background: #7c5cff;
+  color: #f4f1ff;
+  border: 1px solid #7c5cff;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.site-nav-icons a:hover img {
-  opacity: 1;
-  filter: drop-shadow(0 0 8px rgba(120, 150, 200, 0.35));
-}
-
-.site-nav-icons a:hover {
-  border-bottom-color: transparent;
+.site-nav-pilot:hover {
+  border-bottom-color: #7c5cff;
+  opacity: 0.95;
 }
 
 .page-back {
@@ -197,11 +197,7 @@
     display: inline;
   }
 
-  .site-nav-icons {
+  .site-nav-actions {
     margin-left: auto;
-  }
-
-  .site-nav-icon--bluesky {
-    display: none;
   }
 }

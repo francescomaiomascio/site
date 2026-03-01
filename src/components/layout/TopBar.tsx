@@ -1,144 +1,38 @@
-import Image from "next/image";
 import Link from "next/link";
-import avatarSrc from "@/app/img/DSC00498.jpg";
+
+const PILOT_MAILTO =
+  "mailto:pilot@yai.foundation?subject=Book%20Pilot%20-%20YAI%2014-Day";
+
+const DOCS_URL = "https://github.com/yai-labs/yai/tree/main/docs";
+const GITHUB_URL = "https://github.com/yai-labs/yai";
 
 export function TopBar() {
   return (
-    <header className="site-header">
-      <nav className="site-nav site-shell">
-        <Link href="/" className="site-brand">
-          <Image
-            src={avatarSrc}
-            alt="Francesco Maiomascio"
-            width={36}
-            height={36}
-            className="site-brand-avatar"
-            priority
-          />
-          <span className="site-brand-name">Francesco Maiomascio</span>
-          <span className="site-brand-short" aria-hidden="true">FM</span>
+    <header className="topbar" role="banner">
+      <nav className="topbar-inner" aria-label="Primary">
+        <Link href="/" className="topbar-brand" aria-label="YAI Labs home">
+          <span className="topbar-brand-mark">YAI</span>
+          <span className="topbar-brand-meta">Governed Execution</span>
         </Link>
 
-        <div className="site-nav-links">
-          <Link href="/projects">Projects</Link>
-          <Link href="/writing">Writing</Link>
-          <Link href="/status">Status</Link>
-          <Link href="/about">About</Link>
+        <div className="topbar-links" role="navigation" aria-label="Site">
+          <Link href="/#proof" className="topbar-link">
+            Proof
+          </Link>
+          <Link href="/#services" className="topbar-link">
+            Services
+          </Link>
+          <a className="topbar-link" href={DOCS_URL} target="_blank" rel="noreferrer">
+            Docs
+          </a>
         </div>
 
-        <div className="site-nav-icons" aria-label="Presence">
-          <a
-            href="https://github.com/francescomaiomascio"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-          >
-            <Image
-              src="https://readmecodegen.vercel.app/api/social-icon?name=github&theme=dark&size=20"
-              alt=""
-              width={22}
-              height={22}
-              unoptimized
-            />
+        <div className="topbar-actions">
+          <a className="topbar-link topbar-link--muted" href={GITHUB_URL} target="_blank" rel="noreferrer">
+            GitHub
           </a>
-          <a
-            href="https://huggingface.co/francescomaiomascio"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Hugging Face"
-          >
-            <Image
-              src="https://readmecodegen.vercel.app/api/social-icon?name=huggingface&theme=dark&size=20"
-              alt=""
-              width={22}
-              height={22}
-              unoptimized
-            />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/francescomaiomascio/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-          >
-            <Image
-              src="https://readmecodegen.vercel.app/api/social-icon?name=linkedin&theme=dark&size=20"
-              alt=""
-              width={22}
-              height={22}
-              unoptimized
-            />
-          </a>
-          <a
-            href="https://stackoverflow.com/users/30851581/francesco-maiomascio"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Stack Overflow"
-          >
-            <Image
-              src="https://readmecodegen.vercel.app/api/social-icon?name=stackoverflow&theme=dark&size=20"
-              alt=""
-              width={22}
-              height={22}
-              unoptimized
-            />
-          </a>
-          <a
-            href="https://x.com/framaiomascio"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="X"
-          >
-            <Image
-              src="https://readmecodegen.vercel.app/api/social-icon?name=x&theme=dark&size=20"
-              alt=""
-              width={22}
-              height={22}
-              unoptimized
-            />
-          </a>
-          <a
-            href="https://www.youtube.com/@francescomaiomascio_dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="YouTube"
-          >
-            <Image
-              src="https://readmecodegen.vercel.app/api/social-icon?name=youtube&theme=dark&size=20"
-              alt=""
-              width={22}
-              height={22}
-              unoptimized
-            />
-          </a>
-          <a
-            href="https://francescomaiomascio.gumroad.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Gumroad"
-          >
-            <Image
-              src="https://readmecodegen.vercel.app/api/social-icon?name=gumroad&theme=dark&size=20"
-              alt=""
-              width={22}
-              height={22}
-              unoptimized
-            />
-          </a>
-          <a
-            href="https://bsky.app/profile/maiomascio.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Bluesky"
-            className="site-nav-icon--bluesky"
-          >
-            <Image
-              src="https://readmecodegen.vercel.app/api/social-icon?name=bluesky&theme=dark&size=20"
-              alt=""
-              width={22}
-              height={22}
-              unoptimized
-            />
+          <a className="button button--primary" href={PILOT_MAILTO}>
+            Book Pilot
           </a>
         </div>
       </nav>
