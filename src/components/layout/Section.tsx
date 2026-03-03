@@ -44,6 +44,7 @@ export function Section({
 
   const innerClass = cx(
     "section-inner",
+    "yai-container",
     innerClassName
   );
 

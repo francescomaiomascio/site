@@ -108,7 +108,7 @@ export function TopBar() {
 
   return (
     <header ref={rootRef} className="topbar" role="banner">
-      <nav className="topbar-inner" aria-label="Primary">
+      <nav className="topbar-inner yai-container" aria-label="Primary">
         <Link href="/" className="topbar-brand" aria-label="YAI Labs home">
           <Image
             src="/yai.png"

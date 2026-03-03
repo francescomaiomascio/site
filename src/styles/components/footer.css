@@ -30,17 +30,15 @@
 }
 
 .yai-footer-shell {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding-inline: var(--gutter);
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 /* Pre-footer CTA (home only) */
 .yai-prefooter-cta {
   min-height: clamp(380px, 50vh, 560px);
-  padding: clamp(72px, 10vh, 112px) 0 clamp(36px, 5.6vh, 62px);
+  padding: clamp(62px, 8.8vh, 96px) 0 clamp(30px, 4.8vh, 52px);
   border-top: 1px solid var(--footer-border);
   text-align: center;
   display: flex;
@@ -59,68 +57,31 @@
 .yai-prefooter-sub {
   margin: 14px auto 0;
   max-width: 66ch;
-  font-size: 1.04rem;
+  font-size: 0.96rem;
   line-height: 1.42;
   color: rgba(232, 238, 246, 0.66);
 }
 
 .yai-prefooter-actions {
-  margin-top: 22px;
+  margin-top: 18px;
   display: inline-flex;
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.yai-footer-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 148px;
-  height: 44px;
-  padding: 0 16px;
-  border-radius: 9px;
-  border: 1px solid rgba(143, 185, 255, 0.26);
-  background: rgba(143, 185, 255, 0.08);
-  color: rgba(243, 246, 251, 0.92);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 520;
-  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
-}
-
-.yai-footer-btn:hover {
-  background: rgba(143, 185, 255, 0.14);
-  border-color: rgba(143, 185, 255, 0.48);
-  color: #fff;
-}
-
-.yai-footer-btn--primary {
-  background: linear-gradient(
-    90deg,
-    rgba(143, 185, 255, 0.12) 0%,
-    rgba(122, 92, 255, 0.16) 100%
-  );
-  border-color: rgba(122, 92, 255, 0.46);
-}
-
-.yai-footer-btn--primary:hover {
-  background: linear-gradient(
-    90deg,
-    rgba(143, 185, 255, 0.2) 0%,
-    rgba(122, 92, 255, 0.24) 100%
-  );
-  border-color: rgba(122, 92, 255, 0.64);
+.yai-prefooter-actions .button {
+  min-width: 132px;
 }
 
 .yai-footer-main {
-  padding: clamp(26px, 4.2vh, 52px) 0 clamp(56px, 8vh, 104px);
+  padding: clamp(22px, 3.7vh, 40px) 0 clamp(48px, 7vh, 88px);
   background: transparent;
 }
 
 .yai-footer-grid {
   display: grid;
-  grid-template-columns: minmax(220px, 282px) minmax(0, 1fr);
+  grid-template-columns: minmax(198px, 246px) minmax(0, 1fr);
   gap: clamp(54px, 7vw, 98px);
   align-items: start;
 }
@@ -147,7 +108,7 @@
 
 .yai-footer-logo-mark {
   color: rgba(122, 92, 255, 0.96);
-  font-size: 1.65rem;
+  font-size: 1.42rem;
   font-weight: 680;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -155,7 +116,7 @@
 
 .yai-footer-logo-sub {
   color: rgba(243, 246, 251, 0.86);
-  font-size: 1.54rem;
+  font-size: 1.34rem;
   font-weight: 430;
   letter-spacing: -0.02em;
 }
@@ -167,8 +128,8 @@
 }
 
 .yai-footer-social-btn {
-  width: 32px;
-  height: 32px;
+  width: 29px;
+  height: 29px;
   border-radius: 999px;
   border: 1px solid rgba(143, 185, 255, 0.2);
   background: rgba(143, 185, 255, 0.06);
@@ -181,8 +142,8 @@
 }
 
 .yai-footer-social-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
 }
 
 .yai-footer-social-btn:hover {
@@ -194,7 +155,7 @@
 .yai-footer-rail-links {
   display: grid;
   gap: 6px;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   margin-top: 4px;
 }
 
@@ -210,14 +171,14 @@
 }
 
 .yai-footer-lang-select {
-  width: 164px;
-  height: 36px;
+  width: 150px;
+  height: 34px;
   border-radius: 8px;
   border: 1px solid rgba(143, 185, 255, 0.24);
   background: rgba(143, 185, 255, 0.04);
   color: rgba(232, 238, 246, 0.86);
-  padding: 0 32px 0 11px;
-  font-size: 0.86rem;
+  padding: 0 30px 0 10px;
+  font-size: 0.8rem;
   appearance: none;
   background-image:
     linear-gradient(45deg, transparent 50%, rgba(232, 238, 246, 0.78) 50%),
@@ -232,7 +193,7 @@
 .yai-footer-cols {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px clamp(20px, 2.4vw, 34px);
+  gap: 18px clamp(16px, 2vw, 28px);
   justify-self: end;
   width: min(100%, 1000px);
 }
@@ -270,7 +231,7 @@
 .yai-footer-col span {
   display: block;
   padding: 2px 0;
-  font-size: 0.84rem;
+  font-size: 0.78rem;
   line-height: 1.46;
 }
 
@@ -288,7 +249,6 @@
 .yai-footer-rail-links a:focus-visible,
 .yai-footer-col a:focus-visible,
 .yai-footer-social-btn:focus-visible,
-.yai-footer-btn:focus-visible,
 .yai-footer-lang-select:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px rgba(122, 92, 255, 0.42);
@@ -330,10 +290,8 @@
     padding: 70px 0 42px;
   }
 
-  .yai-footer-btn {
+  .yai-prefooter-actions .button {
     width: min(100%, 190px);
-    height: 42px;
-    font-size: 0.92rem;
   }
 
   .yai-footer-cols {

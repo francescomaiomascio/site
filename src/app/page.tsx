@@ -1,12 +1,14 @@
 "use client";
 
+import { useState } from "react";
+import Link from "next/link";
 import { Section } from "@/components/layout/Section";
+import { DomainsGridSection } from "@/components/home/DomainsGrid";
 import Image from "next/image";
 
 const PILOT_MAILTO =
   "mailto:pilot@yai.foundation?subject=YAI%20Pilot%20-%2014%20Days";
-const DOCS_URL = "https://github.com/yai-labs/yai/tree/main/docs";
-const GITHUB_URL = "https://github.com/yai-labs/yai";
+const DOCS_URL = "/docs";
 
 function ExternalAnchor(props: {
   href: string;
@@ -76,7 +78,7 @@ function HomeHero() {
         <div className="home-hero-content">
           <h1 className="home-h1">
               <span className="home-h1-top">Make execution</span>
-              <span className="home-h1-bottom">predictable.</span>
+              <span className="home-h1-bottom">predictable</span>
           </h1>
 
           <p className="home-lede">
@@ -105,74 +107,12 @@ function HomeHero() {
   );
 }
 
-/* ===== the rest stays as-is for now ===== */
-
-function Split(props: {
-  title: React.ReactNode;
-  subtitle: string;
-  children?: React.ReactNode;
-}) {
-  return (
-    <div className="home-split">
-      <div className="home-split-left">
-        <h2 className="home-h2">{props.title}</h2>
-        <p className="home-sub">{props.subtitle}</p>
-      </div>
-      <div className="home-split-right">{props.children}</div>
-    </div>
-  );
-}
-
-function Tile(props: { title: string; body: string; href?: string; cta?: string }) {
-  const inner = (
-    <>
-      <div className="home-tile-title">{props.title}</div>
-      <div className="home-tile-body">{props.body}</div>
-      {props.href && props.cta ? <div className="home-tile-cta">{props.cta} →</div> : null}
-    </>
-  );
-
-  if (props.href) return <a className="home-tile" href={props.href}>{inner}</a>;
-  return <div className="home-tile">{inner}</div>;
-}
-
-function DomainCard(props: { label: string; title: string; body: string; href?: string }) {
-  return (
-    <a className="domain-card" href={props.href ?? "#start"}>
-      <div className="domain-label">{props.label}</div>
-      <div className="domain-title">{props.title}</div>
-      <div className="domain-body">{props.body}</div>
-    </a>
-  );
-}
-
-function DomainsGrid() {
-  const items = [
-    { label: "Digital", title: "Data egress & pipelines", body: "Control outbound effects, storage and telemetry.", href: "#start" },
-    { label: "Physical", title: "Devices & actuators", body: "Safe commands, explicit constraints, deterministic outcomes.", href: "#start" },
-    { label: "Biological", title: "Chain of custody", body: "Integrity, provenance, and controlled procedures.", href: "#start" },
-    { label: "Institutional", title: "Procedures & authorization", body: "Policy-backed actions with traceable decisions.", href: "#start" },
-    { label: "Economic", title: "Transactions & approvals", body: "Deterministic authorization and audit-grade evidence.", href: "#start" },
-    { label: "Operational", title: "Incidents & response", body: "Containment actions with proof-led execution.", href: "#start" },
-    { label: "Cognitive", title: "Publishing & content", body: "Enforcement surfaces for knowledge work.", href: "#start" },
-    { label: "Scientific", title: "Reproducibility locks", body: "Parameter integrity, replayability, and proof.", href: "#start" },
-    { label: "Environmental", title: "Telemetry integrity", body: "Trusted signals and verifiable monitoring.", href: "#start" },
-  ];
-
-  return (
-    <div className="domains-grid" aria-label="Domains">
-      {items.map((x) => (
-        <DomainCard key={x.label} {...x} />
-      ))}
-    </div>
-  );
-}
-
 function IntegrationsLogos() {
   const items = [
-    { label: "GitHub", src: "/stack/github.png" },
-    { label: "Docker", src: "/stack/docker.png" },
-    { label: "Kubernetes", src: "/stack/kubernetes.svg", svg: true },
+    { label: "GitHub", src: "/stack/github-icon.png" },
+    { label: "Docker", src: "/stack/docker-icon.png" },
+    { label: "Kubernetes", src: "/stack/kubernetes-icon.png" },
+    { label: "OpenTelemetry", src: "/stack/OpenTelemetry.png" },
     { label: "Linux", src: "/stack/linux.png" },
     { label: "Amazon S3", src: "/stack/s3.png" },
   ] as const;
@@ -196,25 +136,166 @@ function IntegrationsLogos() {
 }
 
 function Quickstart() {
+  const snippets = {
+    bash: `<span class="tok-com"># yai-cli quick usage (repo: yai-cli/README.md)</span>
+<span class="tok-cmd">./dist/bin/yai</span> <span class="tok-arg">root status</span>
+<span class="tok-cmd">./dist/bin/yai</span> <span class="tok-arg">root ping</span>
+<span class="tok-cmd">./dist/bin/yai</span> <span class="tok-arg">kernel ws list</span>
+<span class="tok-cmd">./dist/bin/yai</span> <span class="tok-arg">engine --ws dev status</span>
+
+<span class="tok-com"># governance gates (repo: yai/tools/bin)</span>
+<span class="tok-cmd">tools/bin/yai-verify</span> <span class="tok-arg">list</span>
+<span class="tok-cmd">tools/bin/yai-verify</span> <span class="tok-arg">core</span>
+<span class="tok-cmd">tools/bin/yai-proof-check</span>`,
+    c: `<span class="tok-com">/* yai-sdk executor flow (repo: yai-sdk/include + src/ops/executor.c) */</span>
+<span class="tok-kw">const char</span>* argv[] = { <span class="tok-str">"status"</span> };
+<span class="tok-kw">yai_exec_request_t</span> req = {
+  .command_id = <span class="tok-str">"yai.root.ping"</span>,
+  .argc = <span class="tok-num">1</span>,
+  .argv = argv,
+  .json_mode = <span class="tok-num">1</span>
+};
+
+<span class="tok-kw">yai_exec_result_t</span> out = { <span class="tok-num">0</span> };
+<span class="tok-kw">int</span> rc = <span class="tok-fn">yai_sdk_execute</span>(&req, &out);
+<span class="tok-fn">printf</span>(<span class="tok-str">"rc=%d code=%d msg=%s\\n"</span>, rc, out.code, out.message ? out.message : <span class="tok-str">""</span>);`,
+    json: `<span class="tok-com">// decision record excerpt (repo: yai-ops/evidence/.../decision_records.pretty.json)</span>
+{
+  <span class="tok-key">"event"</span>: { <span class="tok-key">"type"</span>: <span class="tok-str">"network.egress.connect"</span>, <span class="tok-key">"source"</span>: <span class="tok-str">"rt001-curl-live"</span> },
+  <span class="tok-key">"decision"</span>: {
+    <span class="tok-key">"outcome"</span>: <span class="tok-str">"deny"</span>,
+    <span class="tok-key">"reason_code"</span>: <span class="tok-str">"EGRESS_DEST_NOT_CONTRACTED"</span>,
+    <span class="tok-key">"baseline_id"</span>: <span class="tok-str">"baseline-deny"</span>
+  },
+  <span class="tok-key">"enforcement"</span>: { <span class="tok-key">"result"</span>: <span class="tok-str">"blocked"</span> },
+  <span class="tok-key">"metrics"</span>: { <span class="tok-key">"time_to_contain_ms"</span>: <span class="tok-num">0</span>, <span class="tok-key">"bytes_exfiltrated"</span>: <span class="tok-num">0</span> }
+}`,
+    yaml: `<span class="tok-com"># wave item excerpt (repo: yai-ops/.../wave/wave.yaml)</span>
+<span class="tok-key">id</span>: <span class="tok-str">WAVE-1</span>
+<span class="tok-key">launch_id</span>: <span class="tok-str">SC102-WAVE1-LAUNCH</span>
+<span class="tok-key">scenario</span>: <span class="tok-str">SC-102</span>
+<span class="tok-key">selection_policy</span>: <span class="tok-str">selected-runs-only</span>
+<span class="tok-key">items</span>:
+  - <span class="tok-key">trial_id</span>: <span class="tok-str">RT-0.1-001-D1-EGRESS-CURL</span>
+    <span class="tok-key">pack_id</span>: <span class="tok-str">D1-digital/egress-v1</span>
+    <span class="tok-key">baseline_contract_ref</span>: <span class="tok-str">.../baseline-deny.json</span>
+    <span class="tok-key">run_cmds</span>:
+      - <span class="tok-key">path</span>: <span class="tok-str">.../run-three.sh</span>`,
+    make: `<span class="tok-com"># build + gates (repo: yai/Makefile)</span>
+<span class="tok-kw">build</span>: boot root kernel engine
+<span class="tok-kw">dist</span>: build
+<span class="tok-kw">bundle</span>: dist
+  <span class="tok-cmd">tools/bin/yai-bundle</span>
+
+<span class="tok-kw">verify</span>:
+  <span class="tok-cmd">./tools/bin/yai-verify</span>
+
+<span class="tok-kw">proof-verify</span>:
+  <span class="tok-cmd">tools/bin/yai-proof-check</span>`,
+  } as const;
+
+  const tabs = [
+    { id: "bash", label: "BASH" },
+    { id: "c", label: "C" },
+    { id: "json", label: "JSON" },
+    { id: "yaml", label: "YAML" },
+    { id: "make", label: "MAKE" },
+  ] as const;
+
+  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]["id"]>("bash");
+
   return (
     <div className="home-code" aria-label="Quickstart">
-      <div className="home-code-head">
-        <div className="home-code-title">Start building in minutes</div>
-        <ExternalAnchor href={DOCS_URL} className="button button--link" ariaLabel="Open quickstart">
-          Explore docs
-        </ExternalAnchor>
+      <div className="home-code-head home-code-head--stack">
+        <div className="home-code-tabs" role="tablist" aria-label="Quickstart languages">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              className={`home-code-tab ${activeTab === tab.id ? "is-active" : ""}`}
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
       <pre className="home-code-pre">
-        <code>{`# verify
-tools/bin/yai-verify list
-
-# run (example)
-yai ws create --id demo
-yai run --ws demo --plan ./plans/demo.yml
-
-# inspect proof surfaces
-yai proof --ws demo --latest`}</code>
+        <code dangerouslySetInnerHTML={{ __html: snippets[activeTab] }} />
       </pre>
+    </div>
+  );
+}
+
+function DeployCard(props: { title: string; lines: [string, string]; href: string; cta: string }) {
+  return (
+    <Link href={props.href} className="deploy-card">
+      <h3 className="deploy-card__title">{props.title}</h3>
+      <p className="deploy-card__body">
+        <span>{props.lines[0]}</span>
+        <span>{props.lines[1]}</span>
+      </p>
+      <span className="deploy-card__cta">{props.cta} →</span>
+    </Link>
+  );
+}
+
+function DeployAnywhere() {
+  return (
+    <div className="home-deploy">
+      <header className="home-section-head">
+        <h2 className="home-h2">Deploy anywhere.</h2>
+        <p className="home-sub">
+          Run YAI alongside your systems — enforce contracts before external effects.
+        </p>
+      </header>
+      <div className="deploy-grid">
+        <DeployCard
+          title="Sidecar / Gateway"
+          lines={[
+            "Attach to services and pipelines.",
+            "Preflight actions before network, storage, or actuators.",
+          ]}
+          href="/docs/patterns"
+          cta="See patterns"
+        />
+        <DeployCard
+          title="On-prem / Air-gapped"
+          lines={[
+            "Keep data and proofs local.",
+            "Pinned registries, deterministic runs, evidence bundles on disk.",
+          ]}
+          href="/docs/deploy"
+          cta="Read deployment guide"
+        />
+        <DeployCard
+          title="Embedded / SDK"
+          lines={[
+            "Integrate at the edge.",
+            "C/C++/Rust SDK, minimal footprint, fail-closed enforcement.",
+          ]}
+          href="/docs/sdk"
+          cta="Browse SDK"
+        />
+      </div>
+    </div>
+  );
+}
+
+function IntegrateInMinutes() {
+  return (
+    <div className="home-integrate">
+      <header className="home-section-head">
+        <h2 className="home-h2">Start building in minutes.</h2>
+        <p className="home-sub">Create a workspace, run a governed action, inspect the evidence.</p>
+        <p className="home-subtle">
+          <strong>Execution mode:</strong> enforce constraints in real time.{" "}
+          <strong>Proof mode:</strong> verify outcomes after the run.
+        </p>
+      </header>
+      <Quickstart />
     </div>
   );
 }
@@ -229,52 +310,31 @@ export default function HomePage() {
           <h2 className="home-h2">
             Govern action in real <span className="accent">environments</span>
           </h2>
+          <p className="home-sub">Start with one workflow, then expand across domains.</p>
         </div>
-        <DomainsGrid />
+        <DomainsGridSection featuredOnly showAllLink />
       </Section>
 
       <Section id="faster" className="home-block">
-        <Split
-          title={<>Think fast. Build <span className="accent">safer</span>.</>}
-          subtitle="Enforce constraints at execution time, and keep a record you can verify afterward."
-        >
-          <div className="home-tiles">
-            <Tile title="Deterministic outcomes" body="Same inputs follow the same decision paths. Behavior is stable under constraints." />
-            <Tile title="Fail-closed boundaries" body="External effects are explicit. When rules don’t match, execution stops or quarantines." />
-            <Tile title="Verifiable history" body="Traces and artifacts are produced as part of delivery — replayable, not reconstructive." />
-          </div>
-        </Split>
-      </Section>
-
-      <Section id="deploy" className="home-block">
-        <Split
-          title={<>Fit into real <span className="accent">environments</span>.</>}
-          subtitle="Deploy locally, in CI, or at the edge — without rewriting your stack."
-        >
-          <div className="home-tiles home-tiles--3">
-            <Tile title="Pilot in your environment" body="One real workflow. Tight scope. Proof-led output your team can keep." href={PILOT_MAILTO} cta="Book pilot" />
-            <Tile title="Self-hosted by default" body="Local-first execution surfaces designed for predictable behavior and traceability." href={DOCS_URL} cta="Read docs" />
-            <Tile title="Open-source foundation" body="Specs, runbooks, milestone packs, and reproducible verification are public." href={GITHUB_URL} cta="View repository" />
-          </div>
-        </Split>
+        <DeployAnywhere />
       </Section>
 
       <Section id="stack" className="home-block">
-        <Split
-          title={<>Integrates where <span className="accent">actions</span> happen.</>}
-          subtitle="YAI wraps pipelines, scripts, and device-side execution — with verifiable proof surfaces."
-        >
+        <div className="home-stack-split">
           <IntegrationsLogos />
-        </Split>
+          <div className="home-section-head home-stack-copy">
+            <h2 className="home-h2">
+              Integrates where <span className="accent">actions</span> happen
+            </h2>
+            <p className="home-sub">
+              YAI wraps pipelines, scripts, and device-side execution with verifiable proof surfaces.
+            </p>
+          </div>
+        </div>
       </Section>
 
-      <Section id="start" className="home-block">
-        <Split
-          title="Proof-led by design."
-          subtitle="Documentation and verification surfaces are first-class. If it can’t be verified, it doesn’t ship."
-        >
-          <Quickstart />
-        </Split>
+      <Section id="deploy" className="home-block">
+        <IntegrateInMinutes />
       </Section>
 
     </>

@@ -10,7 +10,9 @@
   --surface-panel-2: rgba(255, 255, 255, 0.07);
 
   /* Brand */
-  --yai-violet: #7a5cff;
+  --yai-violet-enterprise: #8b72ff; /* + luminanza, più leggibile su sfondo scuro */
+  --yai-violet-proof: #7f62f5;      /* più serio/deep */
+  --yai-violet: var(--yai-violet-enterprise);
   --yai-teal: #2ed5c5;
 
   /* Text (bright + stable) */
@@ -22,7 +24,7 @@
   /* Accents */
   --accent: var(--yai-violet);
   --accent-2: var(--yai-teal);
-  --accent-soft: rgba(122, 92, 255, 0.16);
+  --accent-soft: rgba(139, 114, 255, 0.16);
   --accent-2-soft: rgba(46, 213, 197, 0.14);
 
   /* Strokes */
@@ -36,7 +38,7 @@
   --state-info: #3498db;
 
   /* Link defaults (override per component if needed) */
-  --link: rgba(122, 92, 255, 0.92);
+  --link: rgba(139, 114, 255, 0.92);
   --link-hover: rgba(46, 213, 197, 0.92);
 
   /* Shadow helpers (used by typography / cards) */

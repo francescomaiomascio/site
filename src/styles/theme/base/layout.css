@@ -9,12 +9,19 @@
 
 :root {
   --topbar-h: 56px;
+  /* REDIS_GEOMETRY (reference ratios for container geometry)
+     desktop: max=1360px, pad=24px
+     mobile:  max=1360px, pad=16px
+     breakpoint pad switch: 768px
+  */
+  --content-max: 1160px;
+  --content-max-narrow: 1080px;
+  --content-pad: 36px;
+  --content-pad-sm: 18px;
+  --content-break-sm: 768px;
 
   /* measure is typography-ish but used for layout widths too */
   --measure: 68ch;
-
-  /* parallax var (set by SiteLayout) */
-  --bg-y: 0px;
 
   /* base background */
   --bg: var(--surface-bg, #0b0f14);
@@ -45,10 +52,7 @@
 }
 
 /* ===== Global background canvas (fixed) =====
-   - single YAI field (violet) from the top
-   - darker lower half (near-black)
-   - no “two spotlights”
-   - parallax is transform-based
+   Clean mono-tone field (no violet spotlight), strong and sober.
 */
 
 .app-surface--bg::before {
@@ -58,26 +62,27 @@
   z-index: 0;
   pointer-events: none;
 
-  background-color: var(--bg);
-
-  /* ONE identity field + diagonal wash */
-  background-image:
-    radial-gradient(1400px 860px at 50% 10%, rgba(122, 92, 255, 0.18), transparent 62%),
-    linear-gradient(135deg, rgba(122, 92, 255, 0.08) 0%, rgba(11, 15, 20, 0.00) 52%);
+  background-color: #082636;
+  background-image: linear-gradient(
+    180deg,
+    #0a2b3b 0%,
+    #082636 46%,
+    #061e2e 100%
+  );
 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  transform: translate3d(0, var(--bg-y), 0) scale(1.04);
+  transform: none;
   transform-origin: center;
-  will-change: transform;
+  will-change: auto;
 
-  filter: saturate(1.03) contrast(1.01);
+  filter: saturate(0.95) contrast(1.02);
   opacity: 1;
 }
 
-/* Film + vignette (readability without killing hero) */
+/* Soft matte surface for depth without visual noise */
 .app-surface--bg::after {
   content: "";
   position: fixed;
@@ -85,15 +90,12 @@
   z-index: 1;
   pointer-events: none;
 
-  /* keep top readable, make bottom decisively darker */
   background:
-    radial-gradient(1200px 720px at 50% 12%, rgba(0, 0, 0, 0.18), transparent 62%),
     linear-gradient(
       to bottom,
-      rgba(11, 15, 20, 0.10) 0%,
-      rgba(11, 15, 20, 0.36) 40%,
-      rgba(11, 15, 20, 0.72) 72%,
-      rgba(11, 15, 20, 0.92) 100%
+      rgba(3, 10, 18, 0.06) 0%,
+      rgba(3, 10, 18, 0.18) 42%,
+      rgba(3, 10, 18, 0.34) 100%
     );
 }
 
@@ -101,16 +103,32 @@
 
 .section { width: 100%; }
 
+.yai-container {
+  box-sizing: border-box;
+  width: min(var(--content-max), 100%);
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--content-pad);
+}
+
+/* CSS custom properties are not usable directly in media queries in current CSS engines. */
+@media (max-width: 768px) {
+  .yai-container { padding-inline: var(--content-pad-sm); }
+}
+
 .section-inner {
   width: 100%;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding-inline: var(--gutter);
   padding-block: var(--section-pad-y);
 }
 
-.section--narrow .section-inner { max-width: var(--container-narrow); }
-.section--full .section-inner { max-width: none; }
+.section--narrow .section-inner {
+  max-width: var(--content-max-narrow);
+}
+.section--full .section-inner {
+  max-width: none;
+}
+
+.debug-layout .yai-container { outline: 1px solid rgba(255, 0, 0, 0.35); }
 
 /* Hero spacing uses tokens (viewport-friendly) */
 .section--hero .section-inner {

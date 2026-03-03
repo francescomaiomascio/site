@@ -59,7 +59,7 @@ export function Footer() {
     <footer className="yai-footer" aria-label="Site footer">
       {/* Main grid */}
       <section className="yai-footer-main">
-        <div className="yai-footer-shell yai-footer-grid">
+        <div className="yai-footer-shell yai-footer-grid yai-container">
           {/* Left rail */}
           <div className="yai-footer-rail">
             <Link href="/" className="yai-footer-logo" aria-label="YAI Labs home">

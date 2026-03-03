@@ -3,34 +3,34 @@
 :root {
   --topbar-h: 70px;
 
-  --topbar-bg: rgba(9, 12, 16, 0.96);
-  --topbar-border: rgba(255, 255, 255, 0.08);
+  --topbar-bg: rgba(6, 23, 34, 0.95);
+  --topbar-border: rgba(143, 185, 255, 0.12);
 
   --topbar-hover: rgba(143, 185, 255, 0.92);
-  --topbar-hover-2: rgba(122, 92, 255, 0.92);
+  --topbar-hover-2: rgba(143, 185, 255, 0.92);
 
   --topbar-fg: rgba(243, 246, 251, 0.74);
   --topbar-fg-strong: rgba(243, 246, 251, 0.92);
   --topbar-muted: rgba(243, 246, 251, 0.58);
 
   /* dropdown shell */
-  --dd-bg: rgb(9, 12, 16);
-  --dd-border: rgba(255, 255, 255, 0.10);
-  --dd-shadow: 0 18px 56px rgba(0, 0, 0, 0.62);
+  --dd-bg: rgb(5, 21, 32);
+  --dd-border: rgba(143, 185, 255, 0.14);
+  --dd-shadow: 0 18px 56px rgba(0, 0, 0, 0.5);
   --dd-radius: 12px;
 
   /* right band + neutral separator */
-  --dd-side-bg: rgba(143, 185, 255, 0.06);
-  --dd-sep: rgba(255, 255, 255, 0.08);
+  --dd-side-bg: rgba(143, 185, 255, 0.05);
+  --dd-sep: rgba(143, 185, 255, 0.12);
 
   /* black tail after the band */
-  --dd-tail-bg: rgb(9, 12, 16);
+  --dd-tail-bg: rgb(4, 19, 29);
 
   /* footer strip */
   --dd-footer-bg: linear-gradient(
     90deg,
-    rgba(143, 185, 255, 0.14) 0%,
-    rgba(122, 92, 255, 0.12) 100%
+    rgba(143, 185, 255, 0.10) 0%,
+    rgba(143, 185, 255, 0.06) 100%
   );
 
   /* sizing */
@@ -69,9 +69,6 @@
 
 .topbar-inner {
   width: 100%;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding-inline: var(--gutter);
 
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -242,10 +239,10 @@
   top: calc(var(--topbar-h) + 1px);
   left: 50vw;
 
-  width: min(var(--dd-w), calc(100vw - (var(--gutter) * 2)));
+  width: min(var(--dd-w), calc(100vw - (var(--content-pad) * 2)));
 
   border-radius: var(--dd-radius);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--dd-border);
   background: var(--dd-bg);
   box-shadow: var(--dd-shadow);
   overflow: hidden;
@@ -507,7 +504,7 @@
 
 .topbar-dd-footer {
   padding: 12px 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  border-top: 1px solid rgba(143, 185, 255, 0.14);
   background: var(--dd-footer-bg);
 
   display: flex;
@@ -536,6 +533,12 @@
 @media (max-width: 860px) {
   .topbar-links { display: none; }
   .topbar-inner { grid-template-columns: auto 1fr auto; }
+}
+
+@media (max-width: 768px) {
+  .topbar-dropdown {
+    width: min(var(--dd-w), calc(100vw - (var(--content-pad-sm) * 2)));
+  }
 }
 
 @media (max-width: 520px) {

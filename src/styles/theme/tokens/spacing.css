@@ -5,9 +5,10 @@
 
 :root {
   /* Container */
-  --container-max: 1180px;
-  --container-narrow: 920px;
-  --gutter: clamp(1rem, 3.2vw, 2.25rem);
+  --container-max: var(--content-max, 1360px);
+  --container-narrow: var(--content-max-narrow, 1080px);
+  --gutter: var(--content-pad, 24px);
+  --frame-pad: 0px;
 
   /* Vertical rhythm */
   --stack-1: 0.55rem;
