@@ -32,7 +32,9 @@ export default async function DomainSlugPage({ params }: Props) {
       <div className="section-inner">
         <p className="domains-card-kicker">{domain.kicker}</p>
         <h1 className="home-h2">{domain.title}</h1>
-        <p className="home-sub">{domain.description}</p>
+        <p className="home-sub">
+          {domain.descriptionLead} <strong>{domain.emphasis}</strong> {domain.descriptionTail}
+        </p>
         <p className="home-sub">Domain detail page coming soon.</p>
         <Link href="/domains" className="button button--ghost">Back to domains</Link>
       </div>
