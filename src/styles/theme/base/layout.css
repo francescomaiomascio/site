@@ -123,16 +123,6 @@
   padding-block: var(--section-pad-y-tight);
 }
 
-/* withFooter behavior */
-.section-inner--with-footer {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 0;
-}
-
-.section-inner--with-footer .site-footer { margin-top: auto; }
-
 /* Minimal spacing rhythm inside each section */
 .section-inner > * + * { margin-top: var(--stack-3); }
 

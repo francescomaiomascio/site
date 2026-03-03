@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { TopBar } from "./TopBar";
 import { PageBack } from "./PageBack";
+import { Footer } from "./Footer";
+import { CTASection } from "./CTASection";
 
 function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
@@ -64,6 +66,8 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
       <main ref={mainRef} className="site-main" role="main" id="scroll-root">
         <PageBack />
         {children}
+        {pathname === "/" ? <CTASection /> : null}
+        <Footer />
       </main>
     </div>
   );

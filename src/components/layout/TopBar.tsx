@@ -1,12 +1,14 @@
-// src/components/layout/TopBar.tsx
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 
 const PILOT_MAILTO =
   "mailto:pilot@yai.foundation?subject=Book%20Pilot%20-%20YAI%2014-Day";
 const DOCS_URL = "https://github.com/yai-labs/yai/tree/main/docs";
+const ORG_URL = "https://github.com/yai-labs";
+const DOWNLOADS_URL = "/downloads";
 
 type MenuKey = "products" | "resources" | null;
 
@@ -69,7 +71,7 @@ function useDropdownController() {
 
   const requestClose = () => {
     clearClose();
-    closeT.current = window.setTimeout(() => setOpenMenu(null), 160);
+    closeT.current = window.setTimeout(() => setOpenMenu(null), 140);
   };
 
   const open = (k: Exclude<MenuKey, null>) => {
@@ -94,32 +96,27 @@ function useDropdownController() {
     };
   }, []);
 
-  return { openMenu, setOpenMenu, rootRef, open, requestClose, clearClose };
+  return { openMenu, rootRef, open, requestClose, clearClose };
 }
 
 export function TopBar() {
-  const { openMenu, setOpenMenu, rootRef, open, requestClose, clearClose } =
+  const { openMenu, rootRef, open, requestClose, clearClose } =
     useDropdownController();
 
   const productsId = useId();
   const resourcesId = useId();
 
   return (
-    <header
-      ref={rootRef as any}
-      className={`topbar ${openMenu ? "topbar--menu-open" : ""}`}
-      role="banner"
-    >
-      <div
-        className={`topbar-overlay ${openMenu ? "is-open" : ""}`}
-        aria-hidden="true"
-        onMouseEnter={clearClose}
-        onMouseLeave={requestClose}
-        onClick={() => setOpenMenu(null)}
-      />
-
+    <header ref={rootRef} className="topbar" role="banner">
       <nav className="topbar-inner" aria-label="Primary">
         <Link href="/" className="topbar-brand" aria-label="YAI Labs home">
+          <Image
+            src="/yai.png"
+            alt="YAI"
+            width={24}
+            height={24}
+            className="topbar-brand-icon"
+          />
           <span className="topbar-brand-mark" aria-hidden="true">
             YAI
           </span>
@@ -153,52 +150,60 @@ export function TopBar() {
               onMouseLeave={requestClose}
             >
               <div className="topbar-dd-grid">
-                {/* ONLY column with descriptions */}
+                {/* LEFT */}
                 <div className="topbar-dd-col">
-                  <div className="topbar-dd-kicker">PRODUCTS</div>
+                  <div className="topbar-dd-head">
+                    <div className="topbar-dd-kicker">PRODUCTS</div>
+                    <div className="topbar-dd-headline" aria-hidden="true" />
+                  </div>
 
                   <Link className="topbar-dd-item" href="/#domains" role="menuitem">
-                    <div className="topbar-dd-title">Domains</div>
-                    <div className="topbar-dd-desc">
-                      The execution surface by real-world domain (digital, physical, institutional).
+                    <div className="topbar-dd-icon" aria-hidden="true" />
+                    <div className="topbar-dd-itemtext">
+                      <div className="topbar-dd-title">Domains</div>
+                      <div className="topbar-dd-desc">
+                        The execution surface by real-world domain (digital, physical, institutional).
+                      </div>
                     </div>
                   </Link>
 
                   <Link className="topbar-dd-item" href="/#proof" role="menuitem">
-                    <div className="topbar-dd-title">Proof surfaces</div>
-                    <div className="topbar-dd-desc">
-                      What gets produced, stored, and replayed after execution.
+                    <div className="topbar-dd-icon" aria-hidden="true" />
+                    <div className="topbar-dd-itemtext">
+                      <div className="topbar-dd-title">Proof surfaces</div>
+                      <div className="topbar-dd-desc">
+                        What gets produced, stored, and replayed after execution.
+                      </div>
                     </div>
                   </Link>
 
                   <Link className="topbar-dd-item" href="/#services" role="menuitem">
-                    <div className="topbar-dd-title">Pilot delivery</div>
-                    <div className="topbar-dd-desc">
-                      Design-partner workflow with verifiable artifacts you keep.
+                    <div className="topbar-dd-icon" aria-hidden="true" />
+                    <div className="topbar-dd-itemtext">
+                      <div className="topbar-dd-title">Pilot delivery</div>
+                      <div className="topbar-dd-desc">
+                        Design-partner workflow with verifiable artifacts you keep.
+                      </div>
                     </div>
                   </Link>
                 </div>
 
-                {/* No descriptions here (Redis-like list column) */}
-                <div className="topbar-dd-col topbar-dd-col--tools">
-                  <div className="topbar-dd-kicker">NAV</div>
+                {/* RIGHT band */}
+                <div className="topbar-dd-col topbar-dd-col--side">
+                  <div className="topbar-dd-head">
+                    <div className="topbar-dd-kicker">TOOLS</div>
+                    <div className="topbar-dd-headline" aria-hidden="true" />
+                  </div>
 
                   <Link className="topbar-dd-item topbar-dd-item--plain" href="/#proof" role="menuitem">
                     Pilot outcomes
                   </Link>
-
                   <Link className="topbar-dd-item topbar-dd-item--plain" href="/#services" role="menuitem">
                     Services
                   </Link>
-
-                  <a
-                    className="topbar-dd-item topbar-dd-item--plain"
-                    href={PILOT_MAILTO}
-                    role="menuitem"
-                  >
+                  <a className="topbar-dd-item topbar-dd-item--plain" href={PILOT_MAILTO} role="menuitem">
                     Book pilot
                   </a>
-
                   <a
                     className="topbar-dd-item topbar-dd-item--plain"
                     href={DOCS_URL}
@@ -208,6 +213,18 @@ export function TopBar() {
                   >
                     Try via docs
                   </a>
+
+                  {/* spacer elastico: spinge GET YAI in fondo */}
+                  <div className="topbar-dd-grow" />
+
+                  <div className="topbar-dd-head">
+                    <div className="topbar-dd-kicker">GET YAI</div>
+                    <div className="topbar-dd-headline" aria-hidden="true" />
+                  </div>
+
+                  <Link className="topbar-dd-button" href={DOWNLOADS_URL}>
+                    Downloads
+                  </Link>
                 </div>
               </div>
 
@@ -246,50 +263,81 @@ export function TopBar() {
               onMouseLeave={requestClose}
             >
               <div className="topbar-dd-grid topbar-dd-grid--resources">
-                {/* Redis-like: lists only, no per-item descriptions */}
-                <div className="topbar-dd-col">
-                  <div className="topbar-dd-kicker">LEARN</div>
+                {/* LEFT */}
+                <div className="topbar-dd-col topbar-dd-col--leftstack">
+                  <div className="topbar-dd-head">
+                    <div className="topbar-dd-kicker">LEARN</div>
+                    <div className="topbar-dd-headline" aria-hidden="true" />
+                  </div>
 
-                  <Link className="topbar-dd-item topbar-dd-item--plain" href="/#start" role="menuitem">
-                    Quickstart
-                  </Link>
-                  <Link className="topbar-dd-item topbar-dd-item--plain" href="/#proof" role="menuitem">
-                    Tutorials
-                  </Link>
-                  <Link className="topbar-dd-item topbar-dd-item--plain" href="/#services" role="menuitem">
-                    Developer Hub
-                  </Link>
-                  <Link className="topbar-dd-item topbar-dd-item--plain" href="/#proof" role="menuitem">
-                    Commands
-                  </Link>
-                  <Link className="topbar-dd-item topbar-dd-item--plain" href="/writing" role="menuitem">
-                    Blog
-                  </Link>
+                  <div className="topbar-dd-table">
+                    <Link className="topbar-dd-item topbar-dd-item--plain" href="/#start" role="menuitem">
+                      Tutorials
+                    </Link>
+                    <Link className="topbar-dd-item topbar-dd-item--plain" href="/#start" role="menuitem">
+                      Quick starts
+                    </Link>
+                    <Link className="topbar-dd-item topbar-dd-item--plain" href="/#proof" role="menuitem">
+                      Commands
+                    </Link>
+
+                    <Link className="topbar-dd-item topbar-dd-item--plain" href="/writing" role="menuitem">
+                      Blog
+                    </Link>
+                    <a className="topbar-dd-item topbar-dd-item--plain" href={DOCS_URL} target="_blank" rel="noreferrer" role="menuitem">
+                      Docs
+                    </a>
+                    <Link className="topbar-dd-item topbar-dd-item--plain" href="/#services" role="menuitem">
+                      Developer Hub
+                    </Link>
+                  </div>
+
+                  {/* grow: spinge CONNECT verso il basso */}
+                  <div className="topbar-dd-grow" />
+
+                  <div className="topbar-dd-head">
+                    <div className="topbar-dd-kicker">CONNECT</div>
+                    <div className="topbar-dd-headline" aria-hidden="true" />
+                  </div>
+
+                  <div className="topbar-dd-table">
+                    <a className="topbar-dd-item topbar-dd-item--plain" href={PILOT_MAILTO} role="menuitem">
+                      Support
+                    </a>
+                    <Link className="topbar-dd-item topbar-dd-item--plain" href="/#services" role="menuitem">
+                      Events & pilots
+                    </Link>
+                    <a className="topbar-dd-item topbar-dd-item--plain" href={ORG_URL} target="_blank" rel="noreferrer" role="menuitem">
+                      GitHub org
+                    </a>
+                  </div>
                 </div>
 
-                <div className="topbar-dd-col topbar-dd-col--tools">
-                  <div className="topbar-dd-kicker">LATEST</div>
+                {/* RIGHT band */}
+                <div className="topbar-dd-col topbar-dd-col--side">
+                  <div className="topbar-dd-head">
+                    <div className="topbar-dd-kicker">LATEST</div>
+                    <div className="topbar-dd-headline" aria-hidden="true" />
+                  </div>
 
-                  <Link className="topbar-dd-item topbar-dd-item--plain" href="/status" role="menuitem">
-                    News & updates
-                  </Link>
                   <Link className="topbar-dd-item topbar-dd-item--plain" href="/status" role="menuitem">
                     Releases
                   </Link>
+                  <Link className="topbar-dd-item topbar-dd-item--plain" href="/status" role="menuitem">
+                    News & updates
+                  </Link>
 
-                  <div className="topbar-dd-sep" aria-hidden="true" />
+                  {/* grow: spinge START HERE in fondo */}
+                  <div className="topbar-dd-grow" />
 
-                  <div className="topbar-dd-kicker">CONNECT</div>
+                  <div className="topbar-dd-head">
+                    <div className="topbar-dd-kicker">START HERE</div>
+                    <div className="topbar-dd-headline" aria-hidden="true" />
+                  </div>
 
-                  <a className="topbar-dd-item topbar-dd-item--plain" href={PILOT_MAILTO} role="menuitem">
-                    Support
+                  <a className="topbar-dd-button topbar-dd-button--compact" href={ORG_URL} target="_blank" rel="noreferrer">
+                    Visit GitHub
                   </a>
-                  <span className="topbar-dd-item topbar-dd-item--plain topbar-dd-item--muted">
-                    Partners (coming soon)
-                  </span>
-                  <span className="topbar-dd-item topbar-dd-item--plain topbar-dd-item--muted">
-                    Professional services (coming soon)
-                  </span>
                 </div>
               </div>
 
@@ -320,12 +368,7 @@ export function TopBar() {
             Book pilot
           </a>
 
-          <a
-            className="button button--primary topbar-cta"
-            href={DOCS_URL}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className="button button--primary topbar-cta" href={DOCS_URL} target="_blank" rel="noreferrer">
             Try YAI
           </a>
         </div>

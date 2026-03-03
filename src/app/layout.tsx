@@ -17,12 +17,12 @@ import "@/styles/features/home-hero.css";
 import "@/styles/features/home-domains.css";
 import "@/styles/features/home-sections.css";
 
-import { Inter, Roboto_Condensed } from "next/font/google";
+import { Inter, Oswald } from "next/font/google";
 
 /**
  * Two-font system:
  * - Inter: global UI/body (“Redis-like”)
- * - Roboto Condensed: display only (hero H1)
+ * - Oswald: display only (hero H1)
  */
 const yaiSans = Inter({
   subsets: ["latin"],
@@ -31,9 +31,9 @@ const yaiSans = Inter({
   variable: "--font-sans",
 });
 
-const yaiDisplay = Roboto_Condensed({
+const yaiDisplay = Oswald({
   subsets: ["latin"],
-  weight: ["700", "900"],
+  weight: ["600", "700"],
   display: "swap",
   variable: "--font-display",
 });
@@ -41,34 +41,36 @@ const yaiDisplay = Roboto_Condensed({
 export const metadata: Metadata = {
   metadataBase: new URL("https://yai.foundation"),
   title: {
-    default: "YAI",
-    template: "%s — YAI",
+    default: "YAI Labs",
+    template: "%s | YAI Labs",
   },
   description:
-    "Execution infrastructure for systems that act: enforce constraints, preserve verifiable history, ship proof-led.",
-  applicationName: "YAI",
+    "Governed execution for systems that act. Constraints first. Proof preserved.",
+  applicationName: "YAI Labs",
   icons: {
     icon: [
-      { url: "/favicon.png", type: "image/png" },
-      { url: "/favicon.ico" },
-      { url: "/favicon.jpg" },
+      { url: "/icon.png?v=2", type: "image/png" },
+      { url: "/yai.png?v=2", type: "image/png" },
     ],
-    shortcut: [{ url: "/favicon.ico" }],
+    shortcut: [{ url: "/icon.png?v=2", type: "image/png" }],
+    apple: [{ url: "/apple-icon.png?v=2", type: "image/png" }],
   },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    siteName: "YAI",
-    title: "YAI",
+    siteName: "YAI Labs",
+    title: "YAI Labs",
     description:
-      "Execution infrastructure for systems that act: enforce constraints, preserve verifiable history, ship proof-led.",
+      "Governed execution for systems that act. Constraints first. Proof preserved.",
     url: "https://yai.foundation",
+    images: [{ url: "/hero/hero-site.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "YAI",
+    title: "YAI Labs",
     description:
-      "Execution infrastructure for systems that act: enforce constraints, preserve verifiable history, ship proof-led.",
+      "Governed execution for systems that act. Constraints first. Proof preserved.",
+    images: ["/hero/hero-site.jpg"],
   },
 };
 

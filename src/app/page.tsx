@@ -57,7 +57,7 @@ function HeroStackCarousel() {
                 width={240}
                 height={80}
                 sizes="(max-width: 980px) 140px, 180px"
-                unoptimized={Boolean((it as any).svg)}
+                unoptimized={"svg" in it && Boolean(it.svg)}
                 priority={false}
               />
             </div>
@@ -65,7 +65,6 @@ function HeroStackCarousel() {
         </div>
       </div>
 
-      <div className="hero-stack-title">Works with your tech stack</div>
     </div>
   );
 }
@@ -74,27 +73,29 @@ function HomeHero() {
   return (
     <Section id="top" variant="hero" className="home-hero">
       <div className="home-hero-inner home-center">
-        <h1 className="home-h1">
-            <span className="home-h1-top">Make execution</span>
-            <span className="home-h1-bottom">predictable.</span>
-        </h1>
+        <div className="home-hero-content">
+          <h1 className="home-h1">
+              <span className="home-h1-top">Make execution</span>
+              <span className="home-h1-bottom">predictable.</span>
+          </h1>
 
-        <p className="home-lede">
-          Governed execution for systems that act. Constraints first. Proof preserved.
-        </p>
+          <p className="home-lede">
+            Governed execution for systems that act — constraints first, proof preserved.
+          </p>
 
-        <div className="home-cta" aria-label="Primary actions">
-          <ExternalAnchor
-            className="button button--primary"
-            href={DOCS_URL}
-            ariaLabel="Try via docs"
-          >
-            Try YAI
-          </ExternalAnchor>
+          <div className="home-cta" aria-label="Primary actions">
+            <ExternalAnchor
+              className="button button--primary"
+              href={DOCS_URL}
+              ariaLabel="Try via docs"
+            >
+              Try YAI
+            </ExternalAnchor>
 
-          <a className="button button--ghost" href={PILOT_MAILTO}>
-            Book pilot
-          </a>
+            <a className="button button--ghost" href={PILOT_MAILTO}>
+              Book pilot
+            </a>
+          </div>
         </div>
 
         <HeroStackCarousel />
@@ -107,15 +108,13 @@ function HomeHero() {
 /* ===== the rest stays as-is for now ===== */
 
 function Split(props: {
-  kicker: string;
-  title: string;
+  title: React.ReactNode;
   subtitle: string;
   children?: React.ReactNode;
 }) {
   return (
     <div className="home-split">
       <div className="home-split-left">
-        <div className="home-kicker">{props.kicker}</div>
         <h2 className="home-h2">{props.title}</h2>
         <p className="home-sub">{props.subtitle}</p>
       </div>
@@ -169,13 +168,27 @@ function DomainsGrid() {
   );
 }
 
-function Pills() {
-  const items = ["OTEL", "S3", "GitHub", "Kubernetes", "Docker", "Linux", "CI/CD", "UDS"];
+function IntegrationsLogos() {
+  const items = [
+    { label: "GitHub", src: "/stack/github.png" },
+    { label: "Docker", src: "/stack/docker.png" },
+    { label: "Kubernetes", src: "/stack/kubernetes.svg", svg: true },
+    { label: "Linux", src: "/stack/linux.png" },
+    { label: "Amazon S3", src: "/stack/s3.png" },
+  ] as const;
+
   return (
-    <div className="home-pills" aria-label="Integration surfaces">
-      {items.map((x) => (
-        <div key={x} className="home-pill">
-          {x}
+    <div className="home-integrations-logos" aria-label="Integration surfaces">
+      {items.map((it) => (
+        <div key={it.label} className="home-integrations-logo" title={it.label} aria-label={it.label}>
+          <Image
+            src={it.src}
+            alt={it.label}
+            width={180}
+            height={56}
+            className="home-integrations-img"
+            unoptimized={"svg" in it && Boolean(it.svg)}
+          />
         </div>
       ))}
     </div>
@@ -212,20 +225,18 @@ export default function HomePage() {
       <HomeHero />
 
       <Section id="domains" className="home-block">
-        <Split
-          kicker="Domains"
-          title="Govern action across real-world domains."
-          subtitle="YAI applies the same execution discipline across digital, physical, institutional, and scientific workflows — with proof surfaces you can keep."
-        >
-          <DomainsGrid />
-        </Split>
+        <div className="home-section-head">
+          <h2 className="home-h2">
+            Govern action in real <span className="accent">environments</span>
+          </h2>
+        </div>
+        <DomainsGrid />
       </Section>
 
       <Section id="faster" className="home-block">
         <Split
-          kicker="Move faster"
-          title="Think fast. Build safer."
-          subtitle="YAI makes action a controllable surface: enforcement at execution time, and a record you can verify afterward."
+          title={<>Think fast. Build <span className="accent">safer</span>.</>}
+          subtitle="Enforce constraints at execution time, and keep a record you can verify afterward."
         >
           <div className="home-tiles">
             <Tile title="Deterministic outcomes" body="Same inputs follow the same decision paths. Behavior is stable under constraints." />
@@ -237,9 +248,8 @@ export default function HomePage() {
 
       <Section id="deploy" className="home-block">
         <Split
-          kicker="Deploy anywhere"
-          title="Fit into real environments."
-          subtitle="Start with one workflow and expand across domains. Deploy locally, in CI, or on edge systems — without rewriting your stack."
+          title={<>Fit into real <span className="accent">environments</span>.</>}
+          subtitle="Deploy locally, in CI, or at the edge — without rewriting your stack."
         >
           <div className="home-tiles home-tiles--3">
             <Tile title="Pilot in your environment" body="One real workflow. Tight scope. Proof-led output your team can keep." href={PILOT_MAILTO} cta="Book pilot" />
@@ -251,17 +261,15 @@ export default function HomePage() {
 
       <Section id="stack" className="home-block">
         <Split
-          kicker="Works with your tech stack"
-          title="Integrates where actions happen."
-          subtitle="YAI wraps workflows, not whitepapers. It sits around pipelines, scripts, automation tools, and device-side execution."
+          title={<>Integrates where <span className="accent">actions</span> happen.</>}
+          subtitle="YAI wraps pipelines, scripts, and device-side execution — with verifiable proof surfaces."
         >
-          <Pills />
+          <IntegrationsLogos />
         </Split>
       </Section>
 
       <Section id="start" className="home-block">
         <Split
-          kicker="Start building"
           title="Proof-led by design."
           subtitle="Documentation and verification surfaces are first-class. If it can’t be verified, it doesn’t ship."
         >
@@ -269,7 +277,6 @@ export default function HomePage() {
         </Split>
       </Section>
 
-      <Section id="yai-launch-footer" className="section--projects project-section yai-launch-section" withFooter />
     </>
   );
 }

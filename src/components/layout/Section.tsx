@@ -1,6 +1,5 @@
 // src/components/layout/Section.tsx
 import React from "react";
-import { Footer } from "./Footer";
 
 type SectionWidth = "full" | "wide" | "narrow";
 type SectionVariant = "default" | "hero" | "highlight";
@@ -12,6 +11,7 @@ export interface SectionProps {
   variant?: SectionVariant;
   className?: string;
   innerClassName?: string;
+  /** Legacy no-op: footer is now mounted in SiteLayout. */
   withFooter?: boolean;
   /**
    * Opt-in scroll snapping. Default off to avoid trackpad weirdness.
@@ -31,7 +31,6 @@ export function Section({
   variant = "default",
   className,
   innerClassName,
-  withFooter = false,
   snap = false,
   children,
 }: SectionProps) {
@@ -45,16 +44,12 @@ export function Section({
 
   const innerClass = cx(
     "section-inner",
-    withFooter && "section-inner--with-footer",
     innerClassName
   );
 
   return (
     <Component id={id} className={sectionClass}>
-      <div className={innerClass}>
-        {children}
-        {withFooter ? <Footer /> : null}
-      </div>
+      <div className={innerClass}>{children}</div>
     </Component>
   );
 }

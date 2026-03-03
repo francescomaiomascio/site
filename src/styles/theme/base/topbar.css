@@ -1,36 +1,58 @@
-/* src/styles/theme/base/topbar.css
-   TopBar: Redis-like
-   - solid header (no transparency)
-   - solid dropdown (no blur-through)
-   - chevrons blue, rotate
-   - hover = text color only (no card)
-   - resources lists: no per-item descriptions
-*/
+/* src/styles/theme/base/topbar.css */
 
 :root {
-  --topbar-h: 76px;
+  --topbar-h: 70px;
 
-  /* SOLID surfaces */
   --topbar-bg: rgba(9, 12, 16, 0.96);
   --topbar-border: rgba(255, 255, 255, 0.08);
 
-  /* accents */
   --topbar-hover: rgba(143, 185, 255, 0.92);
   --topbar-hover-2: rgba(122, 92, 255, 0.92);
 
-  /* text */
   --topbar-fg: rgba(243, 246, 251, 0.74);
   --topbar-fg-strong: rgba(243, 246, 251, 0.92);
   --topbar-muted: rgba(243, 246, 251, 0.58);
 
-  /* dropdown */
-  --dd-bg: rgba(9, 12, 16, 0.98);
+  /* dropdown shell */
+  --dd-bg: rgb(9, 12, 16);
   --dd-border: rgba(255, 255, 255, 0.10);
   --dd-shadow: 0 18px 56px rgba(0, 0, 0, 0.62);
-  --dd-radius: 16px;
+  --dd-radius: 12px;
+
+  /* right band + neutral separator */
+  --dd-side-bg: rgba(143, 185, 255, 0.06);
+  --dd-sep: rgba(255, 255, 255, 0.08);
+
+  /* black tail after the band */
+  --dd-tail-bg: rgb(9, 12, 16);
+
+  /* footer strip */
+  --dd-footer-bg: linear-gradient(
+    90deg,
+    rgba(143, 185, 255, 0.14) 0%,
+    rgba(122, 92, 255, 0.12) 100%
+  );
+
+  /* sizing */
+  --dd-w: 920px;
+  --dd-pad: 22px;
+  --dd-gap: 34px;
+
+  /* right band geometry */
+  --dd-side-w: 280px;
+  --dd-tail-w: 64px;
+
+  /* section spacing */
+  --dd-section-gap: 22px;
+
+  /* short separators */
+  --dd-line-inset-r: 88px;
+  --dd-line-inset-side-extra: 56px;
 }
 
-/* ===== container ===== */
+/* ============================================================
+   TOPBAR SHELL
+   ============================================================ */
 
 .topbar {
   position: sticky;
@@ -43,22 +65,6 @@
 
   background: var(--topbar-bg);
   border-bottom: 1px solid var(--topbar-border);
-}
-
-/* overlay below topbar, above page */
-.topbar-overlay {
-  position: fixed;
-  inset: var(--topbar-h) 0 0 0;
-  z-index: 55;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 160ms ease;
-  background: rgba(0, 0, 0, 0.52);
-}
-
-.topbar-overlay.is-open {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .topbar-inner {
@@ -76,8 +82,6 @@
   z-index: 60;
 }
 
-/* ===== typography (fine, not bold) ===== */
-
 .topbar,
 .topbar * {
   font-family: var(--font-sans);
@@ -86,17 +90,24 @@
 /* brand */
 .topbar-brand {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.55rem;
   white-space: nowrap;
   border-bottom: none !important;
+}
+
+.topbar-brand-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
 .topbar-brand-mark {
   font-weight: 820;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--topbar-fg-strong);
+  color: rgba(122, 92, 255, 0.98);
 }
 
 .topbar-brand-sub {
@@ -134,10 +145,9 @@
   opacity: 1;
 }
 
-/* chevron redis-like */
+/* caret */
 .topbar-caret {
   color: rgba(143, 185, 255, 0.82);
-  opacity: 1;
   transform: translateY(-0.02em);
   transition: transform 160ms ease, color 160ms ease;
 }
@@ -167,35 +177,34 @@
   justify-content: center;
 
   cursor: pointer;
-  transition: color 160ms ease, opacity 160ms ease;
+  transition: color 160ms ease;
 }
 
-.topbar-search:hover {
-  color: var(--topbar-hover);
-}
+.topbar-search:hover { color: var(--topbar-hover); }
 
-.topbar-search:focus-visible {
+.topbar-link:focus-visible,
+.topbar-action-link:focus-visible,
+.topbar-search:focus-visible,
+.topbar-dd-item:focus-visible,
+.topbar-dd-button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(143, 185, 255, 0.16);
-  border-radius: 10px;
+  box-shadow: 0 0 0 2px rgba(122, 92, 255, 0.42);
+  border-radius: 8px;
 }
 
 .topbar-action-link {
   color: var(--topbar-fg);
   font-size: 0.92rem;
   font-weight: 450;
-  letter-spacing: 0.003em;
 
   border-bottom: none !important;
   padding: 0.25rem 0;
+
   transition: color 160ms ease;
 }
 
-.topbar-action-link:hover {
-  color: var(--topbar-hover-2);
-}
+.topbar-action-link:hover { color: var(--topbar-hover-2); }
 
-/* CTA: fine + low */
 .topbar-cta {
   min-height: 30px;
   padding: 0.38rem 0.82rem;
@@ -217,7 +226,9 @@
   border-color: rgba(143, 185, 255, 0.66);
 }
 
-/* ===== dropdowns ===== */
+/* ============================================================
+   DROPDOWNS (viewport anchored)
+   ============================================================ */
 
 .topbar-menu {
   position: relative;
@@ -225,141 +236,303 @@
   align-items: center;
 }
 
+/* anchor identico per Products e Resources */
 .topbar-dropdown {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 14px);
+  position: fixed;
+  top: calc(var(--topbar-h) + 1px);
+  left: 50vw;
 
-  width: min(920px, calc(100vw - (var(--gutter) * 2)));
+  width: min(var(--dd-w), calc(100vw - (var(--gutter) * 2)));
+
   border-radius: var(--dd-radius);
-  border: 1px solid var(--dd-border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   background: var(--dd-bg);
   box-shadow: var(--dd-shadow);
-
-  padding: 16px;
   overflow: hidden;
 
   opacity: 0;
-  transform: translate3d(0, -8px, 0);
   pointer-events: none;
+
+  transform: translateX(-50%) translate3d(0, -8px, 0);
+  transform-origin: top center;
   transition: opacity 160ms ease, transform 160ms ease;
+  font-size: 0.94rem;
 
   z-index: 70;
 }
 
 .topbar-menu.is-open .topbar-dropdown {
   opacity: 1;
-  transform: translate3d(0, 0, 0);
   pointer-events: auto;
+  transform: translateX(-50%) translate3d(0, 0, 0);
 }
 
-/* grid */
+/* ============================================================
+   GRID LAYOUT (Redis-like: band + tail)
+   ============================================================ */
+
 .topbar-dd-grid {
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 22px;
-  padding: 6px;
+
+  /* left + right area (right includes band + tail) */
+  grid-template-columns: 1fr calc(var(--dd-side-w) + var(--dd-tail-w));
+
+  gap: var(--dd-gap);
+  padding: var(--dd-pad);
+
+  min-height: 332px;
+  background: var(--dd-bg);
 }
 
 .topbar-dd-grid--resources {
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1fr calc(264px + var(--dd-tail-w));
 }
 
-.topbar-dd-col {
-  min-width: 0;
+/* columns */
+.topbar-dd-col { min-width: 0; }
+
+/* left stack used to push CONNECT down */
+.topbar-dd-col--leftstack {
+  display: flex;
+  flex-direction: column;
 }
 
-.topbar-dd-col--tools {
-  padding-left: 18px;
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
+/* RIGHT area container */
+.topbar-dd-col--side {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* content padding inside the band area */
+  padding-left: 22px;
+  padding-right: 14px;
 }
 
-/* kicker */
+/* BAND (highlighted) */
+.topbar-dd-col--side::before {
+  content: "";
+  position: absolute;
+
+  top: calc(-1 * var(--dd-pad));
+  bottom: calc(-1 * var(--dd-pad));
+
+  right: var(--dd-tail-w);
+  width: var(--dd-side-w);
+
+  background: var(--dd-side-bg);
+  border-left: 1px solid var(--dd-sep);
+
+  pointer-events: none;
+}
+
+/* TAIL (black) */
+.topbar-dd-col--side::after {
+  content: "";
+  position: absolute;
+
+  top: calc(-1 * var(--dd-pad));
+  bottom: calc(-1 * var(--dd-pad));
+
+  right: calc(-1 * var(--dd-pad));
+  width: calc(var(--dd-tail-w) + var(--dd-pad));
+
+  background: var(--dd-tail-bg);
+  pointer-events: none;
+}
+
+/* keep content above pseudo elements */
+.topbar-dd-col--side > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   SECTION HEADS + SHORT SEPARATORS
+   ============================================================ */
+
+.topbar-dd-head { padding: 0; }
+
 .topbar-dd-kicker {
   color: rgba(243, 246, 251, 0.46);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.70rem;
-  font-weight: 600;
-  margin: 6px 8px 12px;
+  font-size: 0.66rem;
+  font-weight: 650;
+  margin: 0;
 }
 
-/* items: NO card hover — only text color */
+/* short line like Redis (never overflows) */
+.topbar-dd-headline {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-top: 14px;
+
+  width: calc(100% - var(--dd-line-inset-r));
+  margin-right: var(--dd-line-inset-r);
+  margin-left: 0;
+}
+
+/* right column: stop earlier because tail exists */
+.topbar-dd-col--side .topbar-dd-headline {
+  width: calc(100% - (var(--dd-tail-w) + var(--dd-line-inset-side-extra)));
+  margin-right: calc(var(--dd-tail-w) + var(--dd-line-inset-side-extra));
+}
+
+/* push blocks to bottom */
+.topbar-dd-grow { flex: 1 1 auto; min-height: 18px; }
+
+/* spacing between major sections (left) */
+.topbar-dd-sectiongap { height: var(--dd-section-gap); }
+
+/* ============================================================
+   ITEMS
+   ============================================================ */
+
 .topbar-dd-item {
-  display: block;
-  padding: 6px 8px;
-  border-radius: 10px;
-
-  border: 0;
-  background: transparent;
-
   border-bottom: none !important;
-  color: rgba(243, 246, 251, 0.86);
+  color: rgba(243, 246, 251, 0.88);
+  transition: color 160ms ease;
 
-  transition: color 160ms ease, opacity 160ms ease;
+  border-radius: 10px;
+  padding: 8px 8px;
 }
 
-.topbar-dd-item:hover {
-  color: var(--topbar-hover);
+.topbar-dd-item:hover { color: var(--topbar-hover); }
+.topbar-dd-item--plain { font-weight: 520; }
+
+/* Products layout */
+.topbar-dd-item { display: flex; align-items: flex-start; }
+.topbar-dd-itemtext { min-width: 0; }
+
+.topbar-dd-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px dashed rgba(243, 246, 251, 0.20);
+  background: rgba(255, 255, 255, 0.02);
+  flex: 0 0 auto;
+  margin-right: 12px;
+  margin-top: 2px;
 }
 
-.topbar-dd-item--muted {
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-/* for “plain” list items (no desc blocks) */
-.topbar-dd-item--plain {
-  font-weight: 520;
-}
-
-/* titles + descriptions (ONLY used in Products column) */
 .topbar-dd-title {
-  color: rgba(243, 246, 251, 0.92);
-  font-weight: 560;
-  font-size: 0.94rem;
-  letter-spacing: 0.001em;
+  color: rgba(243, 246, 251, 0.94);
+  font-weight: 580;
+  font-size: 0.92rem;
 }
+.topbar-dd-item:hover .topbar-dd-title { color: var(--topbar-hover); }
 
 .topbar-dd-desc {
   margin-top: 4px;
   color: rgba(243, 246, 251, 0.58);
-  font-size: 0.90rem;
-  line-height: 1.42;
+  font-size: 0.72rem;
+  line-height: 1.44;
 }
 
-/* separator inside column */
-.topbar-dd-sep {
-  height: 1px;
-  margin: 12px 6px;
-  background: rgba(255, 255, 255, 0.08);
+/* ============================================================
+   RESOURCES TABLE (aligned grid, not “storto”)
+   ============================================================ */
+/* =========================
+   LEARN + CONNECT tables (Redis rhythm)
+   ========================= */
+
+.topbar-dd-table {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 12px;
+  padding: 8px 0 0;
+  align-content: start;
+  align-items: start;
+  justify-items: start;
+  width: 100%;
+  min-width: 0;
 }
 
-/* footer strip — attached, not “boxed” */
-.topbar-dd-footer {
-  margin-top: 14px;
+.topbar-dd-table > * {
+  min-width: 0;
+}
+
+.topbar-dd-table .topbar-dd-item {
+  display: block;
+  padding: 4px 0;
+  border-radius: 0;
+  font-size: 0.86rem;
+  font-weight: 520;
+  line-height: 1.34;
+  letter-spacing: 0.001em;
+  margin: 0;
+  align-self: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   CTA BUTTONS
+   ============================================================ */
+
+.topbar-dd-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: min(240px, 100%);
+  margin-top: 16px;
+
   padding: 12px 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
 
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(143, 185, 255, 0.22);
+  border: 1px solid rgba(143, 185, 255, 0.30);
+  color: rgba(248, 251, 255, 0.98);
+
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.topbar-dd-button:hover {
+  background: rgba(143, 185, 255, 0.28);
+  border-color: rgba(143, 185, 255, 0.42);
+  transform: translateY(-1px);
+}
+
+.topbar-dd-button--compact {
+  width: min(210px, 100%);
+  padding: 11px 12px;
+}
+
+/* ============================================================
+   FOOTER STRIP (fix TIPResources)
+   ============================================================ */
+
+.topbar-dd-footer {
+  padding: 12px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  background: var(--dd-footer-bg);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .topbar-dd-footer-kicker {
-  display: inline-block;
-  color: rgba(243, 246, 251, 0.46);
+  color: rgba(243, 246, 251, 0.54);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.68rem;
-  font-weight: 600;
-  margin-right: 10px;
+  letter-spacing: 0.16em;
+  font-size: 0.64rem;
+  font-weight: 640;
 }
 
 .topbar-dd-footer-text {
-  color: rgba(243, 246, 251, 0.66);
-  font-size: 0.90rem;
+  color: rgba(243, 246, 251, 0.72);
+  font-size: 0.84rem;
+  line-height: 1.3;
 }
 
-/* responsive */
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
 @media (max-width: 860px) {
   .topbar-links { display: none; }
   .topbar-inner { grid-template-columns: auto 1fr auto; }
