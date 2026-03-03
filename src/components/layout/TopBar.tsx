@@ -368,7 +368,12 @@ export function TopBar() {
             Book pilot
           </a>
 
-          <a className="button button--primary topbar-cta" href={DOCS_URL} target="_blank" rel="noreferrer">
+          <a
+            className="button button--primary topbar-cta topbar-desktop-only"
+            href={DOCS_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
             Try YAI
           </a>
         </div>

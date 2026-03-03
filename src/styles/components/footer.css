@@ -294,21 +294,73 @@
     width: min(100%, 190px);
   }
 
+  .yai-footer-main {
+    padding: 28px 0 44px;
+  }
+
+  .yai-footer-grid {
+    gap: 22px;
+  }
+
+  .yai-footer-rail {
+    gap: 10px;
+  }
+
+  .yai-footer-rail-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 4px;
+    font-size: 0.78rem;
+  }
+
+  .yai-footer-lang-select {
+    width: 100%;
+    max-width: 188px;
+  }
+
   .yai-footer-cols {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 14px;
   }
 
   .yai-footer-logo-mark {
-    font-size: 1.45rem;
+    font-size: 1.34rem;
   }
 
   .yai-footer-logo-sub {
-    font-size: 1.3rem;
+    font-size: 1.24rem;
   }
 
   .yai-footer-social-btn {
     width: 30px;
     height: 30px;
+  }
+
+  .yai-footer-col-title {
+    font-size: 1.02rem;
+    margin-bottom: 4px;
+  }
+
+  .yai-footer-col a,
+  .yai-footer-col span {
+    font-size: 0.76rem;
+    line-height: 1.34;
+    padding: 1px 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .yai-footer-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 10px;
+  }
+
+  .yai-footer-col-title {
+    font-size: 0.95rem;
+  }
+
+  .yai-footer-col a,
+  .yai-footer-col span {
+    font-size: 0.72rem;
   }
 }

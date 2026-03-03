@@ -15,6 +15,7 @@ import "@/styles/components/footer.css";
 // 4) Feature/page styles (scoped)
 import "@/styles/features/home-hero.css";
 import "@/styles/features/home-domains.css";
+import "@/styles/features/home-domains-illustrations.css";
 import "@/styles/features/home-sections.css";
 
 import { Inter, Oswald } from "next/font/google";

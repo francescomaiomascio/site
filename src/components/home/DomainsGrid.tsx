@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { DOMAINS, type DomainCard } from "@/content/domains";
-import { DomainArt } from "@/components/domains/DomainArt";
+import { DomainIllustration, type DomainIllustrationKind } from "@/components/illustrations/DomainIllustration";
+
+function illustrationKindFromSlug(slug: string): DomainIllustrationKind {
+  if (slug === "physical-actuators") return "physical";
+  if (slug === "digital-egress") return "digital";
+  if (slug === "biological-custody") return "biological";
+  if (slug === "economic-transactions") return "economic";
+  if (slug === "operational-response") return "operational";
+  if (slug === "institutional-authority") return "institutional";
+  return "scientific";
+}
 
 function DomainCardTile({ card }: { card: DomainCard }) {
   return (
@@ -11,7 +21,7 @@ function DomainCardTile({ card }: { card: DomainCard }) {
       data-variant={card.variant}
     >
       <span className="domains-card-affordance" aria-hidden="true">↗</span>
-      <DomainArt template={card.artTemplate} accent={card.accent} variant={card.variant} />
+      <DomainIllustration kind={illustrationKindFromSlug(card.slug)} />
       <div className="domains-card-copy">
         <div className="domains-card-top">
           {card.kicker ? <span className="domains-card-kicker">{card.kicker}</span> : null}

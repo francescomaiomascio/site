@@ -246,7 +246,7 @@ function DeployAnywhere() {
   return (
     <div className="home-deploy">
       <header className="home-section-head">
-        <h2 className="home-h2">Deploy anywhere.</h2>
+        <p className="home-h2 home-section-title">Deploy  <span className="accent">anywhere</span></p>
         <p className="home-sub">
           Run YAI alongside your systems — enforce contracts before external effects.
         </p>
@@ -288,12 +288,7 @@ function IntegrateInMinutes() {
   return (
     <div className="home-integrate">
       <header className="home-section-head">
-        <h2 className="home-h2">Start building in minutes.</h2>
-        <p className="home-sub">Create a workspace, run a governed action, inspect the evidence.</p>
-        <p className="home-subtle">
-          <strong>Execution mode:</strong> enforce constraints in real time.{" "}
-          <strong>Proof mode:</strong> verify outcomes after the run.
-        </p>
+        <p className="home-h2 home-section-title">Start building in  <span className="accent">minutes</span></p>
       </header>
       <Quickstart />
     </div>
@@ -307,9 +302,9 @@ export default function HomePage() {
 
       <Section id="domains" className="home-block">
         <div className="home-section-head">
-          <h2 className="home-h2">
+          <p className="home-h2 home-section-title">
             Govern action in real <span className="accent">environments</span>
-          </h2>
+          </p>
           <p className="home-sub">Start with one workflow, then expand across domains.</p>
         </div>
         <DomainsGridSection featuredOnly showAllLink />
@@ -323,9 +318,9 @@ export default function HomePage() {
         <div className="home-stack-split">
           <IntegrationsLogos />
           <div className="home-section-head home-stack-copy">
-            <h2 className="home-h2">
+            <p className="home-h2 home-section-title">
               Integrates where <span className="accent">actions</span> happen
-            </h2>
+            </p>
             <p className="home-sub">
               YAI wraps pipelines, scripts, and device-side execution with verifiable proof surfaces.
             </p>

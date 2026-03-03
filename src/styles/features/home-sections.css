@@ -5,6 +5,7 @@
 .home-block .section-inner {
   padding-top: var(--section-pad-y);
   padding-bottom: var(--section-pad-y);
+  min-width: 0;
 }
 
 .home-section-head .home-h2 {
@@ -17,13 +18,22 @@
 
 .home-h2 {
   max-width: 26ch;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.015em;
+  font-size: clamp(1.48rem, 2vw, 1.84rem);
+  line-height: 1.16;
+  font-weight: 620;
+}
+
+.home-section-title {
+  margin: 0;
 }
 
 .home-sub {
   margin-top: 0.7rem;
   color: var(--fg-soft);
   max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.45;
 }
 
 .home-subtle {
@@ -55,7 +65,7 @@
   gap: 0.58rem;
   border: 1px solid rgba(160, 193, 229, 0.24);
   background: linear-gradient(180deg, rgba(12, 36, 53, 0.9) 0%, rgba(8, 28, 42, 0.9) 100%);
-  border-radius: 12px;
+  border-radius: 9px;
   padding: 1rem 1rem 0.92rem;
   text-decoration: none;
   color: inherit;
@@ -263,6 +273,10 @@
   align-items: center;
 }
 
+.home-stack-split > * {
+  min-width: 0;
+}
+
 .home-stack-copy {
   justify-self: end;
   text-align: left;
@@ -287,26 +301,182 @@
   .home-stack-copy {
     justify-self: start;
   }
+
+  .home-stack-copy {
+    order: 1;
+  }
+
+  .home-integrations-logos {
+    order: 2;
+    margin-top: 0.6rem;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
+  .home-block .section-inner {
+    padding-top: clamp(2.1rem, 5.2vw, 2.8rem);
+    padding-bottom: clamp(2.1rem, 5.2vw, 2.8rem);
+  }
+
+  .home-h2 {
+    max-width: 18ch;
+    font-size: clamp(1.24rem, 4.9vw, 1.56rem);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    font-weight: 610;
+  }
+
+  .home-sub {
+    font-size: 0.88rem;
+    line-height: 1.42;
+    margin-top: 0.55rem;
+    max-width: 38ch;
+  }
+
+  .home-subtle {
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+
   .deploy-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
 
+  .deploy-card {
+    padding: 0.78rem 0.84rem 0.74rem;
+    gap: 0.36rem;
+  }
+
+  .deploy-card__title {
+    font-size: 1.03rem;
+    line-height: 1.22;
+  }
+
+  .deploy-card__body {
+    font-size: 0.9rem;
+    line-height: 1.38;
+  }
+
+  .deploy-card__cta {
+    font-size: 0.75rem;
+  }
+
   .home-integrations-logos {
     grid-template-columns: repeat(2, minmax(64px, 1fr));
     margin-top: 0.95rem;
+    gap: 0.7rem 1rem;
+  }
+
+  .home-integrations-logo {
+    min-height: 42px;
+  }
+
+  .home-integrations-img {
+    max-width: 46px;
+    max-height: 28px;
   }
 
   .home-code-pre {
     padding: 0.8rem 0.78rem 0.9rem;
-    min-height: 320px;
+    min-height: 260px;
   }
 
   .home-code-tabs {
-    gap: 0.72rem;
+    flex-wrap: nowrap;
+    gap: 0.62rem;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .home-code-tab {
+    flex: 0 0 auto;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  .home-code-pre code {
+    font-size: 0.68rem;
+    line-height: 1.42;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-section-head {
+    text-align: center;
+  }
+
+  .home-h2,
+  .home-section-title {
+    margin-inline: auto;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .home-section-head .home-sub,
+  .home-section-head .home-subtle {
+    display: none;
+  }
+
+  /* Exception requested: keep Domains heading stronger/left-aligned */
+  #domains .home-section-head {
+    text-align: left;
+  }
+
+  #domains .home-h2,
+  #domains .home-section-title {
+    margin-inline: 0;
+    text-align: left;
+    font-weight: 620;
+  }
+
+  /* Requested: Deploy anywhere stays left */
+  #faster .home-section-head {
+    text-align: left;
+  }
+
+  #faster .home-h2,
+  #faster .home-section-title {
+    margin-inline: 0;
+    text-align: left;
+    font-weight: 520;
+  }
+
+  /* Requested: Integrates title centered and forced on two lines */
+  #stack .home-section-head {
+    text-align: center;
+  }
+
+  #stack .home-stack-split {
+    justify-items: center;
+    align-items: start;
+    width: 100%;
+  }
+
+  #stack .home-stack-copy {
+    justify-self: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  #stack .home-h2,
+  #stack .home-section-title {
+    text-align: center;
+    margin-inline: auto;
+    max-width: 16ch;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  #stack .home-integrations-logos {
+    margin-inline: auto;
+    justify-items: center;
+  }
+
+  #stack .home-code {
+    margin-inline: auto;
   }
 }
 

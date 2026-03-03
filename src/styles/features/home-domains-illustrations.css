@@ -1,0 +1,253 @@
+.domain-illustration-shell {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  width: min(60%, 320px);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.domain-ill {
+  width: 100%;
+  height: auto;
+}
+
+.domain-ill-grid,
+.domain-ill-line,
+.domain-ill-frame,
+.domain-ill-trace,
+.domain-ill-quarantine,
+.domain-ill-hash {
+  fill: none;
+  stroke: rgba(232, 238, 246, 0.26);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.domain-ill-node {
+  fill: color-mix(in srgb, var(--domain-accent, rgba(143, 185, 255, 0.85)) 76%, rgba(231, 241, 250, 0.94));
+}
+
+.domain-ill-check {
+  fill: none;
+  stroke: color-mix(in srgb, var(--domain-accent, rgba(143, 185, 255, 0.85)) 82%, rgba(243, 246, 251, 0.95));
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.domain-ill-pulse,
+.domain-ill-incident-pulse {
+  fill: none;
+  stroke: color-mix(in srgb, var(--domain-accent, rgba(143, 185, 255, 0.85)) 60%, transparent);
+  stroke-width: 1.4;
+  opacity: 0;
+}
+
+.domain-ill-trace {
+  stroke-dasharray: 8 7;
+  stroke-dashoffset: 0;
+  animation: illTraceFlow 1.2s linear infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-physical-slider {
+  animation: illSliderTravel 1s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-packet-travel {
+  animation: illPacketTravel 1.1s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-seal {
+  animation: illSealPulse 1.1s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-ledger-marker {
+  animation: illMarkerSlide 1s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-quarantine {
+  stroke-dasharray: 6 6;
+  animation: illDashMarch 1.1s linear infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-authority-path {
+  opacity: 0.3;
+  animation: illPathGlow 1s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-gate-open {
+  transform-origin: 300px 184px;
+  animation: illGateOpen 1s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-lock-click {
+  transform-origin: 300px 178px;
+  animation: illLockClick 0.9s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.domain-ill-pulse,
+.domain-ill-incident-pulse {
+  animation: illRingPulse 1.2s ease-out infinite;
+  animation-play-state: paused;
+}
+
+.domains-card:is(:hover, :focus-within) .domain-ill-trace,
+.domains-card:is(:hover, :focus-within) .domain-ill-physical-slider,
+.domains-card:is(:hover, :focus-within) .domain-ill-packet-travel,
+.domains-card:is(:hover, :focus-within) .domain-ill-seal,
+.domains-card:is(:hover, :focus-within) .domain-ill-ledger-marker,
+.domains-card:is(:hover, :focus-within) .domain-ill-quarantine,
+.domains-card:is(:hover, :focus-within) .domain-ill-authority-path,
+.domains-card:is(:hover, :focus-within) .domain-ill-gate-open,
+.domains-card:is(:hover, :focus-within) .domain-ill-lock-click,
+.domains-card:is(:hover, :focus-within) .domain-ill-pulse,
+.domains-card:is(:hover, :focus-within) .domain-ill-incident-pulse {
+  animation-play-state: running;
+}
+
+@keyframes illTraceFlow {
+  to {
+    stroke-dashoffset: -52;
+  }
+}
+
+@keyframes illSliderTravel {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes illPacketTravel {
+  0% {
+    transform: translateX(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(20px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(40px);
+    opacity: 0.3;
+  }
+}
+
+@keyframes illSealPulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes illMarkerSlide {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(140px);
+  }
+}
+
+@keyframes illDashMarch {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes illPathGlow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes illGateOpen {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.72);
+  }
+}
+
+@keyframes illLockClick {
+  0%, 100% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.88);
+  }
+  70% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes illRingPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  40% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+@media (max-width: 1023px) {
+  .domain-illustration-shell {
+    width: min(56%, 250px);
+    right: 14px;
+    bottom: 10px;
+    opacity: 0.84;
+  }
+}
+
+@media (max-width: 767px) {
+  .domain-illustration-shell {
+    width: min(38%, 170px);
+    right: 10px;
+    bottom: 10px;
+    opacity: 0.72;
+  }
+
+  .domain-ill-grid,
+  .domain-ill-line,
+  .domain-ill-frame,
+  .domain-ill-trace,
+  .domain-ill-quarantine,
+  .domain-ill-hash {
+    stroke-width: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .domain-illustration-shell,
+  .domain-illustration-shell * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
